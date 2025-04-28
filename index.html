@@ -15,6 +15,7 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<script src="https://unpkg.com/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
 <style>
 :where([class^="ri-"])::before { content: "\f3c2"; }
 body {
@@ -76,17 +77,104 @@ justify-content: center;
 cursor: pointer;
 transition: all 0.3s ease;
 position: relative;
+overflow: hidden;
+}
+
+.custom-checkbox::before {
+content: '';
+position: absolute;
+top: 50%;
+left: 50%;
+width: 0;
+height: 0;
+background: rgba(91, 143, 249, 0.3);
+border-radius: 50%;
+transform: translate(-50%, -50%);
+opacity: 0;
 }
 .custom-checkbox:checked {
 background-color: #5B8FF9;
 border-color: #5B8FF9;
 }
 .custom-checkbox:checked::after {
-content: '✓';
+content: '✓'; /* Use a simple character checkmark */
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%); /* Center the checkmark */
 color: white;
-font-size: 12px;
+font-size: 12px; /* Adjust size as needed */
+font-weight: bold;
 line-height: 1;
 }
+
+/* Special styling for newsletter checkbox */
+#newsletter {
+border-width: 2px;
+transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#newsletter:hover {
+transform: scale(1.1);
+border-color: rgba(91, 143, 249, 0.8);
+}
+
+#newsletter:checked {
+background-color: #5B8FF9;
+border-color: #5B8FF9;
+animation: checkbox-pulse 0.5s ease;
+}
+
+#newsletter:checked::after {
+/* Override with simple checkmark */
+content: '✓';
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+color: white;
+font-size: 12px;
+font-weight: bold;
+line-height: 1;
+width: auto; /* Reset width */
+height: auto; /* Reset height */
+border: none; /* Reset border */
+animation: none; /* Reset animation */
+}
+
+@keyframes newsletter-checkmark {
+0% {
+  transform: rotate(45deg) scale(0);
+  opacity: 0;
+}
+50% {
+  transform: rotate(45deg) scale(1.2);
+  opacity: 1;
+}
+100% {
+  transform: rotate(45deg) scale(1);
+  opacity: 1;
+}}
+
+@keyframes checkbox-pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.2); }
+100% { transform: scale(1); }
+}
+
+@keyframes checkmark-appear {
+0% {
+  transform: rotate(45deg) scale(0);
+  opacity: 0;
+}
+50% {
+  transform: rotate(45deg) scale(1.2);
+  opacity: 1;
+}
+100% {
+  transform: rotate(45deg) scale(1);
+  opacity: 1;
+}}
 .custom-checkbox:focus {
 box-shadow: 0 0 0 2px rgba(91, 143, 249, 0.3);
 outline: none;
@@ -280,7 +368,7 @@ animation: float 3s ease-in-out infinite;
     0% { transform: scale(0.95); opacity: 0.7; }
     100% { transform: scale(1.05); opacity: 0.3; }
 }
-/* From Uiverse.io by mrhyddenn */ 
+/* From Uiverse.io by mrhyddenn */
 .loader {
   position: relative;
   width: 50px;
@@ -733,11 +821,11 @@ animation: float 3s ease-in-out infinite;
 }
 
 @keyframes title-reveal {
-  0% { 
+  0% {
     opacity: 0;
     transform: translateY(50px) rotateX(-20deg);
   }
-  100% { 
+  100% {
     opacity: 1;
     transform: translateY(0) rotateX(0deg);
   }
@@ -938,10 +1026,10 @@ transition: transform 0.4s ease;
   font-size: 5rem;
   font-weight: 700;
   color: white;
-  text-shadow: 0 1px 0 #ccc, 
+  text-shadow: 0 1px 0 #ccc,
                0 2px 0 #c9c9c9,
-               0 3px 0 #bbb, 
-               0 4px 0 #b9b9b9, 
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
                0 5px 0 #aaa,
                0 6px 1px rgba(0,0,0,.1),
                0 0 5px rgba(0,0,0,.1),
@@ -957,10 +1045,10 @@ transition: transform 0.4s ease;
 }
 
 .hero-name:hover span {
-  text-shadow: 0 1px 0 #ccc, 
+  text-shadow: 0 1px 0 #ccc,
                0 2px 0 #c9c9c9,
-               0 3px 0 #bbb, 
-               0 4px 0 #b9b9b9, 
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
                0 5px 0 #aaa,
                0 6px 1px rgba(0,0,0,.1),
                0 0 5px rgba(0,0,0,.1),
@@ -1081,7 +1169,7 @@ transition: transform 0.4s ease;
   }
 }
 
-/* From Uiverse.io by 00Kubi */ 
+/* From Uiverse.io by 00Kubi */
 .button {
   --primary: #4f46e5; /* Keeping this blue as requested */
   --neutral-1: #4f46e5; /* Changed from white to blue */
@@ -1740,7 +1828,7 @@ transition: transform 0.4s ease;
   outline: none;
 }
 
-/* From Uiverse.io by alexruix */ 
+/* From Uiverse.io by alexruix */
 .input-group {
   position: relative;
   margin-bottom: 1rem;
@@ -1775,8 +1863,8 @@ transition: transform 0.4s ease;
   padding: 0 0.2em;
 }
 
-.input:focus ~ .user-label, 
-.input:valid ~ .user-label, 
+.input:focus ~ .user-label,
+.input:valid ~ .user-label,
 .input:not(:placeholder-shown) ~ .user-label {
   transform: translateY(-130%) scale(0.8);
   background-color: #212121;
@@ -1787,6 +1875,208 @@ transition: transform 0.4s ease;
 textarea.input {
   min-height: 120px;
   resize: vertical;
+}
+
+/* Tooltip styles */
+.social-icon-link {
+position: relative;
+}
+
+.social-icon-link::after {
+content: attr(data-tooltip);
+position: absolute;
+top: -38px; /* Changed from bottom to top */
+left: 50%;
+transform: translateX(-50%);
+background-color: rgba(0, 0, 0, 0.9);
+color: white;
+padding: 5px 10px;
+border-radius: 6px;
+font-size: 12px;
+white-space: nowrap;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(91, 143, 249, 0.3); /* Primary color border */
+z-index: 10;
+}
+
+/* Arrow pointer */
+.social-icon-link::before {
+content: "";
+position: absolute;
+top: -12px; /* Position above the icon */
+left: 50%;
+transform: translateX(-50%);
+border-width: 6px;
+border-style: solid;
+border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+z-index: 10;
+}
+
+.social-icon-link:hover::after,
+.social-icon-link:hover::before {
+opacity: 1;
+visibility: visible;
+}
+
+.social-icon-link:hover::after {
+transform: translateX(-50%) translateY(-5px); /* Small upward animation */
+}
+
+/* 3D Footer Card Styles */
+.footer-3d-card {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(91, 143, 249, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.footer-3d-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(91, 143, 249, 0.1) 0%, transparent 50%, rgba(91, 143, 249, 0.05) 100%);
+  z-index: 1;
+}
+
+.footer-3d-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, transparent 30%, rgba(91, 143, 249, 0.03) 100%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.footer-3d-card:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.footer-3d-card .card-content {
+  position: relative;
+  z-index: 3;
+  transition: transform 0.4s ease;
+}
+
+.footer-3d-card:hover .card-content {
+  transform: translateZ(20px);
+}
+
+.footer-3d-card .footer-logo img {
+  transition: transform 0.6s ease;
+}
+
+.footer-3d-card:hover .footer-logo img {
+  transform: scale(1.05) translateZ(30px);
+}
+
+.footer-3d-card .footer-social-icons {
+  transition: transform 0.5s ease;
+}
+
+.footer-3d-card:hover .footer-social-icons {
+  transform: translateZ(25px);
+}
+
+.footer-3d-card .footer-tagline {
+  color: #5B8FF9;
+  transition: all 0.5s ease;
+}
+
+.footer-3d-card:hover .footer-tagline {
+  text-shadow: 0 0 10px rgba(91, 143, 249, 0.5);
+}
+
+/* Pulsing glow animation for card */
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(91, 143, 249, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(91, 143, 249, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(91, 143, 249, 0); }
+}
+
+.footer-3d-card {
+  animation: pulse-border 3s infinite;
+}
+
+/* Add these new animations to your existing styles */
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes reverse-spin {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes float-particle1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(20px, -20px); }
+}
+
+@keyframes float-particle2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-15px, 15px); }
+}
+
+@keyframes float-particle3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(15px, 10px); }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 12s linear infinite;
+}
+
+.animate-reverse-spin {
+    animation: reverse-spin 10s linear infinite;
+}
+
+.animate-float-particle1 {
+    animation: float-particle1 4s ease-in-out infinite;
+}
+
+.animate-float-particle2 {
+    animation: float-particle2 5s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+.animate-float-particle3 {
+    animation: float-particle3 6s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.perspective-3000 {
+    perspective: 3000px;
+}
+
+.animate-pulse-slow {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
 }
 </style>
 
@@ -1801,7 +2091,7 @@ document.addEventListener('DOMContentLoaded', function() {
       glare: true,
       "max-glare": 0.3,
     });
-    
+
     // Initialize micro-tilt for smaller elements
     VanillaTilt.init(document.querySelectorAll(".tilt-micro"), {
       max: 5,
@@ -1819,7 +2109,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <body>
 <!-- Loading Animation -->
 <div id="loading-overlay" class="loading-overlay">
-    <!-- From Uiverse.io by mrhyddenn --> 
+    <!-- From Uiverse.io by mrhyddenn -->
     <div class="loader">
         <span></span>
         <span></span>
@@ -1864,19 +2154,41 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Hero Section -->
 <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
     <div class="hero-bg"></div>
-  <div class="particle-container" id="particles"></div>
-    
-  <div class="container mx-auto px-4 text-center hero-3d-container">
-    <!-- Hero Avatar/Icon -->
-    <div class="hero-avatar floating mb-8 w-40 h-40 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-lg shadow-primary/20 mx-auto">
-            <div class="w-36 h-36 bg-[#1A1A1A] rounded-full flex items-center justify-center">
-                <div class="w-10 h-10 flex items-center justify-center">
-                    <i class="ri-code-s-slash-line ri-3x text-white"></i>
+    <div class="particle-container" id="particles"></div>
+
+    <div class="container mx-auto px-4 text-center hero-3d-container">
+        <!-- Enhanced Hero Avatar/Icon -->
+        <div class="hero-avatar floating mb-8 w-40 h-40 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-lg shadow-primary/20 mx-auto transform-gpu transition-all duration-500 hover:scale-110 group perspective-3000">
+            <!-- Outer ring with rotating gradient -->
+            <div class="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-secondary to-primary animate-spin-slow opacity-30"></div>
+            
+            <!-- Pulsing glow effect -->
+            <div class="absolute inset-0 rounded-full bg-gradient-to-br from-primary/50 to-secondary/50 blur-xl animate-pulse-slow"></div>
+            
+            <!-- Inner circle with code icon -->
+            <div class="w-36 h-36 bg-[#1A1A1A] rounded-full flex items-center justify-center relative transform transition-transform duration-500 group-hover:rotate-12">
+                <!-- Particle effects -->
+                <div class="absolute inset-0">
+                    <div class="absolute w-2 h-2 rounded-full bg-primary/60 animate-float-particle1"></div>
+                    <div class="absolute w-2 h-2 rounded-full bg-secondary/60 animate-float-particle2"></div>
+                    <div class="absolute w-1 h-1 rounded-full bg-white/40 animate-float-particle3"></div>
+                </div>
+                
+                <!-- Code icon with glow -->
+                <div class="w-10 h-10 flex items-center justify-center transform transition-all duration-500 group-hover:scale-110">
+                    <i class="ri-code-s-slash-line ri-3x text-white relative">
+                        <!-- Icon glow effect -->
+                        <div class="absolute inset-0 bg-primary/20 blur-lg"></div>
+                    </i>
                 </div>
             </div>
+            
+            <!-- Interactive hover ring -->
+            <div class="absolute -inset-2 rounded-full border-2 border-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-reverse-spin"></div>
         </div>
-        
-    <h1 class="hero-name flex justify-center flex-wrap">
+
+        <!-- Rest of the hero section content -->
+        <h1 class="hero-name flex justify-center flex-wrap text-4xl sm:text-5xl">
       <span data-text="J">J</span>
       <span data-text="o">o</span>
       <span data-text="s">s</span>
@@ -1895,9 +2207,9 @@ document.addEventListener('DOMContentLoaded', function() {
       <span data-text="i">i</span>
       <span data-text="s">s</span>
     </h1>
-    
-    <p class="text-gray-300 mt-4 text-xl">Full-Stack Developer & UI/UX Designer</p>
-    
+
+    <p class="text-gray-300 mt-4 text-lg sm:text-xl">Full-Stack Developer & UI/UX Designer</p>
+
     <!-- Skill tags -->
     <div class="flex flex-wrap gap-4 justify-center my-8">
             <span class="skill-tag px-4 py-2 bg-opacity-10 bg-white rounded-full text-white border border-white/30">
@@ -1916,7 +2228,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <i class="ri-nodejs-line mr-2"></i>Node.js
             </span>
         </div>
-        
+
     <div class="mt-8">
       <a href="#about" class="custom-button">Explore My Work</a>
     </div>
@@ -1927,44 +2239,44 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize background and animations
   document.addEventListener('DOMContentLoaded', function() {
     AOS.init();
-    
+
     // 3D name effect enhanced with mouse movement
     const heroName = document.querySelector('.hero-name');
     const letters = document.querySelectorAll('.hero-name span');
-    
+
     document.addEventListener('mousemove', function(e) {
       const x = e.clientX / window.innerWidth - 0.5;
       const y = e.clientY / window.innerHeight - 0.5;
-      
+
       // Apply transform to the entire name with less extreme rotation
       heroName.style.transform = `rotateY(${x * 10}deg) rotateX(${y * -5}deg)`;
-      
+
       // Apply individual transforms to each letter
       letters.forEach(letter => {
         const depth = Math.random() * 5;
         letter.style.transform = `translateZ(${depth}px) rotateY(${x * 15}deg) rotateX(${y * 7}deg)`;
       });
-      
+
       // Update particles based on mouse position
       updateParticles(e.clientX, e.clientY);
     });
-    
+
     // Reset transform when mouse leaves
     document.addEventListener('mouseleave', function() {
       heroName.style.transform = 'rotateY(0deg) rotateX(0deg)';
-      
+
       letters.forEach(letter => {
         letter.style.transform = 'translateZ(0px) rotateY(0deg) rotateX(0deg)';
       });
     });
-    
+
     // Simple interactive particles
     const particleContainer = document.getElementById('particles');
     const particles = [];
     const particleCount = 80;
     let mouseX = 0;
     let mouseY = 0;
-    
+
     function createParticle() {
       const particle = document.createElement('div');
       particle.style.position = 'absolute';
@@ -1976,30 +2288,30 @@ document.addEventListener('DOMContentLoaded', function() {
       particle.style.pointerEvents = 'none';
       particle.style.transform = 'translate(-50%, -50%)';
       particle.style.transition = 'opacity 0.3s ease';
-      
+
       // Random position
       const x = Math.random() * window.innerWidth;
       const y = Math.random() * window.innerHeight;
       particle.style.left = `${x}px`;
       particle.style.top = `${y}px`;
-      
+
       // Random speed
       const speedX = (Math.random() - 0.5) * 0.5;
       const speedY = (Math.random() - 0.5) * 0.5;
-      
+
       // Random size
       const size = Math.random() * 2 + 1;
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
-      
+
       // Random color (blue or purple tint)
-      const color = Math.random() > 0.5 ? 
-        `rgba(91, 143, 249, ${Math.random() * 0.5 + 0.3})` : 
+      const color = Math.random() > 0.5 ?
+        `rgba(91, 143, 249, ${Math.random() * 0.5 + 0.3})` :
         `rgba(138, 43, 226, ${Math.random() * 0.5 + 0.3})`;
       particle.style.background = color;
-      
+
       particleContainer.appendChild(particle);
-      
+
       // Store particle data
       particles.push({
         element: particle,
@@ -2010,62 +2322,62 @@ document.addEventListener('DOMContentLoaded', function() {
         size: size
       });
     }
-    
+
     function animateParticles() {
       for (const particle of particles) {
         // Move based on speed
         particle.x += particle.speedX;
         particle.y += particle.speedY;
-        
+
         // Gravity effect towards mouse
         const dx = mouseX - particle.x;
         const dy = mouseY - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
+
         if (distance < 200) {
           const force = (200 - distance) / 10000;
           particle.speedX += dx * force;
           particle.speedY += dy * force;
         }
-        
+
         // Dampen speed
         particle.speedX *= 0.99;
         particle.speedY *= 0.99;
-        
+
         // Boundary check
         if (particle.x < 0) {
           particle.x = window.innerWidth;
         } else if (particle.x > window.innerWidth) {
           particle.x = 0;
         }
-        
+
         if (particle.y < 0) {
           particle.y = window.innerHeight;
         } else if (particle.y > window.innerHeight) {
           particle.y = 0;
         }
-        
+
         // Update position
         particle.element.style.left = `${particle.x}px`;
         particle.element.style.top = `${particle.y}px`;
       }
-      
+
       requestAnimationFrame(animateParticles);
     }
-    
+
     function updateParticles(x, y) {
       mouseX = x;
       mouseY = y;
     }
-    
+
     // Initialize particles
     for (let i = 0; i < particleCount; i++) {
       createParticle();
     }
-    
+
     // Start animation
     animateParticles();
-    
+
     // Handle window resize
     window.addEventListener('resize', function() {
       // Adjust particles for new window size
@@ -2083,13 +2395,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="section-transition"></div>
 <!-- Projects Section -->
-<section id="projects" class="py-20 px-6 relative grid-bg">
+<section id="projects" class="py-16 sm:py-20 px-4 sm:px-6 relative grid-bg">
 <div class="max-w-7xl mx-auto">
-<div class="mb-16 text-center">
-<h2 data-aos="fade-up" data-aos-duration="800" class="text-4xl font-bold mb-4">Featured <span class="text-primary">Projects</span></h2>
-<p data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="text-gray-400 max-w-2xl mx-auto text-xl leading-relaxed">Explore my portfolio of web applications that solve real-world problems through clean design and efficient development.</p>
+<div class="mb-12 sm:mb-16 text-center">
+<h2 data-aos="fade-up" data-aos-duration="800" class="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">Featured <span class="text-primary">Projects</span></h2>
+<p data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="text-gray-400 max-w-2xl mx-auto text-base sm:text-xl leading-relaxed">Explore my portfolio of web applications that solve real-world problems through clean design and efficient development.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
 <!-- JILCF Uniform Management System -->
 <div data-aos="fade-up" data-aos-offset="200" class="project-card bg-black bg-opacity-40 rounded-lg overflow-hidden card-hover border border-white/10 transition-all duration-500 hover:border-primary/30">
 <div class="project-card-inner">
@@ -2145,10 +2457,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="px-2 py-1 bg-blue-500/10 text-blue-500 text-xs rounded-full">Flask-SocketIO</span>
 </div>
 <div class="flex justify-between">
-<a href="#" class="text-primary hover:text-primary/80 flex items-center text-sm">
+<a href="https://jilcf-school-uniform-inventory-iss9.onrender.com/" class="text-primary hover:text-primary/80 flex items-center text-sm">
 <i class="ri-eye-line mr-1"></i> Live Demo
 </a>
-<a href="#" class="text-white/70 hover:text-white flex items-center text-sm">
+<a href="https://github.com/Stranger2323/JILCF-School-Uniform-Inventory-Management-System" class="text-white/70 hover:text-white flex items-center text-sm">
 <i class="ri-github-line mr-1"></i> View Code
 </a>
 </div>
@@ -2213,7 +2525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <a href="https://fruit-battlegrounds-wiki-production.up.railway.app/" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 flex items-center text-sm">
 <i class="ri-eye-line mr-1"></i> Live Demo
 </a>
-<a href="#" class="text-white/70 hover:text-white flex items-center text-sm">
+<a href="https://github.com/Stranger2323/fruit-battlegrounds-wiki" class="text-white/70 hover:text-white flex items-center text-sm">
 <i class="ri-github-line mr-1"></i> View Code
 </a>
 </div>
@@ -2230,26 +2542,26 @@ View All Projects
 </div>
 </section>
 <!-- Skills Section - 5x Enhanced -->
-<section id="skills" class="py-32 px-6 relative bg-gradient-to-b from-[#111] to-[#1a1a1a] overflow-hidden">
+<section id="skills" class="py-24 sm:py-32 px-4 sm:px-6 relative bg-gradient-to-b from-[#111] to-[#1a1a1a] overflow-hidden">
     <!-- Animated Grid Background -->
     <div class="absolute inset-0 animated-grid-bg opacity-40"></div>
-    
+
     <div class="max-w-7xl mx-auto relative z-10">
-        <div class="mb-20 text-center">
-            <h2 data-aos="fade-up" data-aos-duration="800" class="text-6xl font-bold mb-6">Technical <span class="skill-title-gradient">Arsenal</span></h2>
-            <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="text-gray-400 max-w-3xl mx-auto text-xl leading-relaxed">
+        <div class="mb-16 sm:mb-20 text-center">
+            <h2 data-aos="fade-up" data-aos-duration="800" class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">Technical <span class="skill-title-gradient">Arsenal</span></h2>
+            <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="text-gray-400 max-w-3xl mx-auto text-lg sm:text-xl leading-relaxed">
                 Leveraging cutting-edge technologies and proven methodologies to craft robust, scalable, and innovative digital solutions.
             </p>
 </div>
-        
+
         <!-- Floating Tech Orbs -->
         <div class="absolute -top-10 left-10 w-48 h-48 tech-orb bg-blue-500/10 blur-[120px] opacity-60 animate-orb-float1"></div>
         <div class="absolute -bottom-20 right-10 w-56 h-56 tech-orb bg-purple-500/10 blur-[120px] opacity-60 animate-orb-float2"></div>
         <div class="absolute top-20 right-20 w-40 h-40 tech-orb bg-teal-500/10 blur-[120px] opacity-60 animate-orb-float3"></div>
-        
+
         <!-- Main Skills Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 perspective-container">
-            
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 perspective-container">
+
             <!-- Frontend Card - Enhanced -->
             <div class="skill-card-enhanced group" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" style="--card-glow-color: #3b82f6;">
                 <div class="card-border"></div>
@@ -2298,7 +2610,7 @@ View All Projects
 </div>
                  <div class="card-particles"></div>
 </div>
-            
+
             <!-- Backend Card - Enhanced -->
             <div class="skill-card-enhanced group" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000" style="--card-glow-color: #8A2BE2;">
                  <div class="card-border"></div>
@@ -2399,7 +2711,7 @@ View All Projects
 </div>
 
         <!-- Tools & DevOps Section - Enhanced -->
-        <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-10 perspective-container">
+        <div class="mt-16 sm:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 perspective-container">
             <!-- DevOps & Deployment Card - Enhanced -->
             <div class="skill-card-enhanced group tool-card" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" style="--card-glow-color: #2563eb;">
                  <div class="card-border"></div>
@@ -2510,8 +2822,8 @@ View All Projects
             backdrop-filter: blur(15px);
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 2rem; 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+            padding: 2rem;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
                         box-shadow 0.4s ease-out;
             transform-style: preserve-3d;
             overflow: hidden; /* Contain particles and border */
@@ -2523,7 +2835,7 @@ View All Projects
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 40px var(--card-glow-color, #fff) / 0.3;
             border-color: rgba(255, 255, 255, 0.15);
         }
-        
+
         /* Animated Border */
         .card-border {
             position: absolute;
@@ -2543,15 +2855,15 @@ View All Projects
             opacity: 1;
             animation: border-spin 4s linear infinite;
         }
-        
+
         @keyframes border-spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        .card-content { 
+        .card-content {
             position: relative; /* Ensure content is above border animation */
-            z-index: 2; 
+            z-index: 2;
             transform: translateZ(20px); /* Push content forward slightly */
         }
 
@@ -2605,7 +2917,7 @@ View All Projects
             color: var(--card-glow-color, #fff);
             text-shadow: 0 0 10px var(--card-glow-color, #fff) / 0.5;
         }
-        
+
         /* Skill Item Enhanced */
         .skill-item-enhanced {
             margin-bottom: 1.5rem; /* Increased spacing */
@@ -2653,14 +2965,14 @@ View All Projects
              background-image: linear-gradient(90deg, rgba(255,255,255,0.3) 0%, transparent 100%);
              animation: skill-bar-shine 2s linear infinite;
         }
-        
+
         @keyframes skill-bar-shine {
              0% { background-position: -100% 0; }
             100% { background-position: 100% 0; }
         }
 
         /* Trigger bar animation on hover/scroll */
-        .group:hover .skill-bar-inner, 
+        .group:hover .skill-bar-inner,
         [data-aos=fade-up].aos-animate .skill-bar-inner {
             /* Fixed empty ruleset lint error */
             width: var(--skill-level);
@@ -2698,7 +3010,7 @@ View All Projects
             75% { opacity: 1; }
             100% { transform: translate(calc(var(--particle-dx, 30) * 1px), calc(var(--particle-dy, 50) * 1px)); opacity: 0; }
         }
-        
+
         /* Tool Card Specifics */
         .tool-card .card-content { transform: translateZ(10px); }
         .tool-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
@@ -2739,23 +3051,23 @@ View All Projects
         }
         .tool-tag:hover::after { opacity: 1; animation: tag-shine 1.5s ease-out; }
         @keyframes tag-shine { from { left: -50%; } to { left: 120%; } }
-        
+
     </style>
 </section>
 
 <!-- About Section -->
-<section id="about" class="py-24 px-6 relative grid-bg overflow-hidden">
+<section id="about" class="py-20 sm:py-24 px-4 sm:px-6 relative grid-bg overflow-hidden">
 <div class="max-w-7xl mx-auto">
-    <div class="mb-16 text-center">
-            <h2 data-aos="fade-up" data-aos-duration="800" class="text-5xl font-bold mb-6 animate-title">About <span class="text-primary animate-pulse-subtle">Me</span></h2>
-            <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">Transforming concepts into elegant solutions through full-stack development and creative problem-solving</p>
+    <div class="mb-12 sm:mb-16 text-center">
+            <h2 data-aos="fade-up" data-aos-duration="800" class="text-4xl sm:text-5xl font-bold mb-4 sm:mb-6 animate-title">About <span class="text-primary animate-pulse-subtle">Me</span></h2>
+            <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" class="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">Transforming concepts into elegant solutions through full-stack development and creative problem-solving</p>
     </div>
-    
+
         <!-- Enhanced Background Effects -->
         <div class="absolute -top-40 -left-40 w-96 h-96 bg-primary/15 rounded-full blur-[120px] opacity-60 animate-float"></div>
         <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-secondary/15 rounded-full blur-[120px] opacity-60 animate-float-delayed"></div>
         <div class="absolute inset-0 radial-gradient-overlay opacity-30 pointer-events-none"></div>
-        
+
     <!-- Animated particles -->
     <div class="particle-container absolute inset-0 overflow-hidden">
         <div class="particle1 absolute w-1 h-1 rounded-full bg-primary opacity-40"></div>
@@ -2763,11 +3075,11 @@ View All Projects
         <div class="particle3 absolute w-1 h-1 rounded-full bg-[#42F5BF] opacity-50"></div>
         <div class="particle4 absolute w-2 h-2 rounded-full bg-white/10 opacity-20"></div>
     </div>
-    
+
     <!-- Main Cards in Modern Layout -->
-    <div class="relative z-10 space-y-12">
+    <div class="relative z-10 space-y-10 md:space-y-12">
         <!-- Main Cards - 3-column modern grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-duration="1000">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8" data-aos="fade-up" data-aos-duration="1000">
                     <!-- Developer Journey Card - Enhanced 2x -->
             <div class="relative group perspective-card perspective-3000" data-aos="zoom-in-right" data-aos-delay="200" data-aos-duration="1000">
                 <div class="card-3d-wrapper transform-gpu transition-transform duration-500 ease-out group-hover:scale-[1.03] group-hover:translate-y-[-10px] group-hover:rotate-y-2">
@@ -2775,14 +3087,14 @@ View All Projects
                             <div class="relative card-3d-front bg-black/70 backdrop-blur-xl rounded-xl p-8 border border-white/10 hover:border-primary/50 transition-all duration-300 shadow-[0_10px_50px_-12px_rgba(91,143,249,0.25)]">
                                 <div class="card-glow absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-br from-primary/30 via-primary/5 to-transparent transition-opacity duration-700"></div>
                                 <div class="card-shine absolute inset-0 z-10 overflow-hidden rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                                
+
                                 <!-- Floating particles -->
                                 <div class="absolute inset-0 overflow-hidden rounded-xl">
                             <div class="card-particle absolute w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-60 transition-opacity animate-card-particle1"></div>
                             <div class="card-particle absolute w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-60 transition-opacity animate-card-particle2" style="left:30%; top:70%;"></div>
                             <div class="card-particle absolute w-2 h-2 rounded-full bg-primary opacity-0 group-hover:opacity-40 transition-opacity animate-card-particle3" style="left:65%; top:25%;"></div>
                                 </div>
-                                
+
                                 <!-- Card Content -->
                                 <div class="relative z-20">
                                     <div class="flex items-start mb-6">
@@ -2794,11 +3106,11 @@ View All Projects
                                             <div class="h-px w-0 group-hover:w-full bg-gradient-to-r from-primary to-primary/30 mt-2 transition-all duration-500 ease-out"></div>
                                         </h3>
                                     </div>
-                                    
+
                                     <p class="text-gray-300 leading-relaxed text-base pl-0 transform transition-all duration-700 group-hover:translate-x-[10px] group-hover:text-white/90">
                                         My development journey began with creating Python games and evolved into building complex web applications that solve real business challenges. I specialize in developing full-stack applications with particular expertise in Flask/Python backends coupled with modern frontend technologies. My work on projects like the JILCF Uniform Management System demonstrates my ability to create practical solutions for inventory tracking, sales processing, and real-time data management.
                                     </p>
-                                    
+
                                     <!-- Visual accents -->
                                     <div class="absolute top-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-blue-700 opacity-20 blur-xl group-hover:opacity-40 transition-opacity"></div>
                                     <div class="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-primary/20 to-transparent rounded-tl-[80px] opacity-30 group-hover:scale-[1.7] group-hover:opacity-60 transition-all duration-700 ease-out"></div>
@@ -2806,7 +3118,7 @@ View All Projects
                             </div>
                         </div>
                     </div>
-                
+
                     <!-- Technical Approach Card - Enhanced 2x -->
             <div class="relative group perspective-card perspective-3000" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="1000">
                 <div class="card-3d-wrapper transform-gpu transition-transform duration-500 ease-out group-hover:scale-[1.03] group-hover:translate-y-[-10px] group-hover:rotate-y-2">
@@ -2814,14 +3126,14 @@ View All Projects
                             <div class="relative card-3d-front bg-black/70 backdrop-blur-xl rounded-xl p-8 border border-white/10 hover:border-secondary/50 transition-all duration-300 shadow-[0_10px_50px_-12px_rgba(138,43,226,0.25)]">
                                 <div class="card-glow absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-br from-secondary/30 via-secondary/5 to-transparent transition-opacity duration-700"></div>
                                 <div class="card-shine absolute inset-0 z-10 overflow-hidden rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                                
+
                                 <!-- Floating particles -->
                                 <div class="absolute inset-0 overflow-hidden rounded-xl">
                             <div class="card-particle absolute w-1 h-1 rounded-full bg-secondary opacity-0 group-hover:opacity-60 transition-opacity animate-card-particle2"></div>
                             <div class="card-particle absolute w-1 h-1 rounded-full bg-secondary opacity-0 group-hover:opacity-60 transition-opacity animate-card-particle3" style="left:70%; top:20%;"></div>
                             <div class="card-particle absolute w-2 h-2 rounded-full bg-secondary opacity-0 group-hover:opacity-40 transition-opacity animate-card-particle1" style="left:25%; top:75%;"></div>
                                 </div>
-                                
+
                                 <!-- Card Content -->
                                 <div class="relative z-20">
                                     <div class="flex items-start mb-6">
@@ -2833,11 +3145,11 @@ View All Projects
                                             <div class="h-px w-0 group-hover:w-full bg-gradient-to-r from-secondary to-secondary/30 mt-2 transition-all duration-500 ease-out"></div>
                                         </h3>
                                     </div>
-                                    
+
                                     <p class="text-gray-300 leading-relaxed text-base pl-0 transform transition-all duration-700 group-hover:translate-x-[10px] group-hover:text-white/90">
                                         I approach development with a focus on clean architecture, comprehensive data modeling, and intuitive UI design. For the Fruit Battlegrounds Wiki, I implemented a sophisticated relational database structure with PostgreSQL and SQLAlchemy to efficiently organize game content. My technical workflow emphasizes careful planning, systematic implementation, and thorough testing to ensure high-quality applications that meet user needs while remaining maintainable for future expansion.
                                     </p>
-                                    
+
                                     <!-- Visual accents -->
                                     <div class="absolute top-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-purple-900 opacity-20 blur-xl group-hover:opacity-40 transition-opacity"></div>
                                     <div class="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-secondary/20 to-transparent rounded-tl-[80px] opacity-30 group-hover:scale-[1.7] group-hover:opacity-60 transition-all duration-700 ease-out"></div>
@@ -2845,7 +3157,7 @@ View All Projects
                             </div>
                         </div>
                     </div>
-                
+
                     <!-- Beyond The Code Card - Enhanced 2x -->
             <div class="relative group perspective-card perspective-3000" data-aos="zoom-in-left" data-aos-delay="400" data-aos-duration="1000">
                 <div class="card-3d-wrapper transform-gpu transition-transform duration-500 ease-out group-hover:scale-[1.03] group-hover:translate-y-[-10px] group-hover:rotate-y-2">
@@ -2853,14 +3165,14 @@ View All Projects
                             <div class="relative card-3d-front bg-black/70 backdrop-blur-xl rounded-xl p-8 border border-white/10 hover:border-[#42F5BF]/50 transition-all duration-300 shadow-[0_10px_50px_-12px_rgba(66,245,191,0.25)]">
                                 <div class="card-glow absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-br from-[#42F5BF]/30 via-[#42F5BF]/5 to-transparent transition-opacity duration-700"></div>
                                 <div class="card-shine absolute inset-0 z-10 overflow-hidden rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                                
+
                                 <!-- Floating particles -->
                                 <div class="absolute inset-0 overflow-hidden rounded-xl">
                             <div class="card-particle absolute w-1 h-1 rounded-full bg-[#42F5BF] opacity-0 group-hover:opacity-60 transition-opacity animate-card-particle3"></div>
                             <div class="card-particle absolute w-1 h-1 rounded-full bg-[#42F5BF] opacity-0 group-hover:opacity-60 transition-opacity animate-card-particle1" style="left:50%; top:30%;"></div>
                             <div class="card-particle absolute w-2 h-2 rounded-full bg-[#42F5BF] opacity-0 group-hover:opacity-40 transition-opacity animate-card-particle2" style="left:15%; top:65%;"></div>
                                 </div>
-                                
+
                                 <!-- Card Content -->
                                 <div class="relative z-20">
                                     <div class="flex items-start mb-6">
@@ -2872,11 +3184,11 @@ View All Projects
                                             <div class="h-px w-0 group-hover:w-full bg-gradient-to-r from-[#42F5BF] to-[#42F5BF]/30 mt-2 transition-all duration-500 ease-out"></div>
                                         </h3>
                                     </div>
-                                    
+
                                     <p class="text-gray-300 leading-relaxed text-base pl-0 transform transition-all duration-700 group-hover:translate-x-[10px] group-hover:text-white/90">
                                         Beyond coding, I'm passionate about creating educational resources that help others. The Fruit Battlegrounds Wiki project exemplifies this through detailed documentation and user-friendly guides that enhance players' experiences. I continually expand my knowledge through online courses and community engagement, with current focus on advanced React patterns and cloud architecture. My background in game design and 3D modeling contributes to my ability to create visually engaging web experiences.
                                     </p>
-                                    
+
                                     <!-- Visual accents -->
                                     <div class="absolute top-6 right-6 w-12 h-12 rounded-full bg-gradient-to-br from-[#42F5BF] to-teal-800 opacity-20 blur-xl group-hover:opacity-40 transition-opacity"></div>
                                     <div class="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-[#42F5BF]/20 to-transparent rounded-tl-[80px] opacity-30 group-hover:scale-[1.7] group-hover:opacity-60 transition-all duration-700 ease-out"></div>
@@ -2885,16 +3197,16 @@ View All Projects
                             </div>
                         </div>
                     </div>
-                    
+
         <!-- Skills Cards - Enhanced layout -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-12 sm:mt-16" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
                         <!-- Database Architecture Card - Mini -->
             <div class="mini-card group perspective-card-mini" data-aos="zoom-in" data-aos-delay="400" data-aos-offset="100">
                 <div class="mini-card-wrapper transform-gpu transition-all duration-500 ease-out group-hover:scale-[1.05] group-hover:translate-y-[-5px] group-hover:rotate-y-3">
                                 <div class="absolute -inset-px bg-gradient-to-br from-primary/50 via-primary/20 to-transparent rounded-lg blur-[2px] opacity-30 group-hover:opacity-80 transition duration-500"></div>
                                 <div class="relative card-3d-front bg-black/80 backdrop-blur-lg p-5 rounded-lg border border-white/10 hover:border-primary/30 transition-all duration-300 shadow-[0_8px_32px_-8px_rgba(91,143,249,0.25)]">
                                     <div class="card-glow absolute -inset-px rounded-lg opacity-0 group-hover:opacity-100 bg-gradient-to-br from-primary/20 via-primary/5 to-transparent transition-opacity duration-700"></div>
-                                    
+
                                     <div class="relative z-10">
                             <div class="mini-icon-3d w-12 h-12 bg-gradient-to-br from-primary/20 to-primary/5 rounded-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 shadow-lg animate-float-tiny">
                                             <i class="ri-database-2-line text-xl text-primary"></i>
@@ -2904,21 +3216,21 @@ View All Projects
                                             <div class="h-px w-0 group-hover:w-3/4 bg-gradient-to-r from-primary to-transparent mt-1 transition-all duration-500 ease-out"></div>
                                         </h4>
                                         <p class="text-gray-400 text-sm transform transition-all duration-500 group-hover:text-gray-300">Designing relational schemas for efficient queries.</p>
-                                        
+
                                         <!-- Visual accent -->
                                         <div class="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-primary/10 to-transparent rounded-tl-[40px] opacity-0 group-hover:opacity-60 transition-all duration-700 ease-out"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
+
                         <!-- Full-Stack Integration Card - Mini -->
             <div class="mini-card group perspective-card-mini" data-aos="zoom-in" data-aos-delay="500" data-aos-offset="100">
                 <div class="mini-card-wrapper transform-gpu transition-all duration-500 ease-out group-hover:scale-[1.05] group-hover:translate-y-[-5px] group-hover:rotate-y-3">
                                 <div class="absolute -inset-px bg-gradient-to-br from-secondary/50 via-secondary/20 to-transparent rounded-lg blur-[2px] opacity-30 group-hover:opacity-80 transition duration-500"></div>
                                 <div class="relative card-3d-front bg-black/80 backdrop-blur-lg p-5 rounded-lg border border-white/10 hover:border-secondary/30 transition-all duration-300 shadow-[0_8px_32px_-8px_rgba(138,43,226,0.25)]">
                                     <div class="card-glow absolute -inset-px rounded-lg opacity-0 group-hover:opacity-100 bg-gradient-to-br from-secondary/20 via-secondary/5 to-transparent transition-opacity duration-700"></div>
-                                    
+
                                     <div class="relative z-10">
                             <div class="mini-icon-3d w-12 h-12 bg-gradient-to-br from-secondary/20 to-secondary/5 rounded-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 shadow-lg animate-float-tiny" style="animation-delay: 0.2s;">
                                             <i class="ri-code-s-slash-line text-xl text-secondary"></i>
@@ -2928,21 +3240,21 @@ View All Projects
                                             <div class="h-px w-0 group-hover:w-3/4 bg-gradient-to-r from-secondary to-transparent mt-1 transition-all duration-500 ease-out"></div>
                                         </h4>
                                         <p class="text-gray-400 text-sm transform transition-all duration-500 group-hover:text-gray-300">Connecting backends with responsive frontends.</p>
-                                        
+
                                         <!-- Visual accent -->
                                         <div class="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-secondary/10 to-transparent rounded-tl-[40px] opacity-0 group-hover:opacity-60 transition-all duration-700 ease-out"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    
+
                         <!-- Real-time Systems Card - Mini -->
             <div class="mini-card group perspective-card-mini" data-aos="zoom-in" data-aos-delay="600" data-aos-offset="100">
                 <div class="mini-card-wrapper transform-gpu transition-all duration-500 ease-out group-hover:scale-[1.05] group-hover:translate-y-[-5px] group-hover:rotate-y-3">
                                 <div class="absolute -inset-px bg-gradient-to-br from-[#42F5BF]/50 via-[#42F5BF]/20 to-transparent rounded-lg blur-[2px] opacity-30 group-hover:opacity-80 transition duration-500"></div>
                                 <div class="relative card-3d-front bg-black/80 backdrop-blur-lg p-5 rounded-lg border border-white/10 hover:border-[#42F5BF]/30 transition-all duration-300 shadow-[0_8px_32px_-8px_rgba(66,245,191,0.25)]">
                                     <div class="card-glow absolute -inset-px rounded-lg opacity-0 group-hover:opacity-100 bg-gradient-to-br from-[#42F5BF]/20 via-[#42F5BF]/5 to-transparent transition-opacity duration-700"></div>
-                                    
+
                                     <div class="relative z-10">
                             <div class="mini-icon-3d w-12 h-12 bg-gradient-to-br from-[#42F5BF]/20 to-[#42F5BF]/5 rounded-md flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 shadow-lg animate-float-tiny" style="animation-delay: 0.4s;">
                                             <i class="ri-server-line text-xl text-[#42F5BF]"></i>
@@ -2952,7 +3264,7 @@ View All Projects
                                             <div class="h-px w-0 group-hover:w-3/4 bg-gradient-to-r from-[#42F5BF] to-transparent mt-1 transition-all duration-500 ease-out"></div>
                                         </h4>
                                         <p class="text-gray-400 text-sm transform transition-all duration-500 group-hover:text-gray-300">Building dynamic apps with WebSockets.</p>
-                                        
+
                                         <!-- Visual accent -->
                                         <div class="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-[#42F5BF]/10 to-transparent rounded-tl-[40px] opacity-0 group-hover:opacity-60 transition-all duration-700 ease-out"></div>
                                     </div>
@@ -2971,25 +3283,25 @@ View All Projects
         --color-secondary: #8A2BE2;
         --color-accent: #42F5BF;
     }
-    
+
     .perspective-card {
         perspective: 1500px;
     }
-    
+
     .card-3d-wrapper {
         transform-style: preserve-3d;
     }
-    
+
     .card-3d-front {
         transform: translateZ(0); /* Base layer */
         backface-visibility: hidden;
     }
-    
+
     .group:hover .card-3d-wrapper {
         /* Fixed empty ruleset lint error */
         transform: rotateY(1deg) rotateX(-0.5deg) scale(1.01);
     }
-    
+
     .shine-effect {
         position: absolute;
         top: 0;
@@ -3007,20 +3319,20 @@ View All Projects
         pointer-events: none;
         z-index: 10; /* Ensure shine is above content */
     }
-    
+
     .group:hover .shine-effect {
         left: 150%;
     }
-    
+
     .radial-gradient-overlay {
         background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
     }
-    
+
     .animated-underline-hover {
       position: relative;
       padding-bottom: 4px;
     }
-    
+
     .animated-underline-hover::after {
       content: '';
       position: absolute;
@@ -3032,7 +3344,7 @@ View All Projects
       transition: width 0.3s ease-out;
       visibility: hidden;
     }
-    
+
     .group:hover .animated-underline-hover::after {
       width: 100%;
       visibility: visible;
@@ -3059,7 +3371,7 @@ View All Projects
     .group:hover .animated-underline-center::after {
         width: 80%; /* Or 100% if preferred */
     }
-    
+
     .mini-card {
         backdrop-filter: blur(5px);
     }
@@ -3382,14 +3694,14 @@ View All Projects
     </style>
 
 <!-- Contact Section -->
-<section id="contact" class="py-20 px-6 relative bg-black bg-opacity-60 grid-bg">
+<section id="contact" class="py-16 sm:py-20 px-4 sm:px-6 relative bg-black bg-opacity-60 grid-bg">
 <div class="max-w-7xl mx-auto">
-<div class="mb-16 text-center">
-<h2 class="text-4xl font-bold mb-4">Get In <span class="text-primary">Touch</span></h2>
-<p class="text-gray-400 max-w-2xl mx-auto">Interested in working together? Feel free to reach out for collaborations or just a friendly hello.</p>
+<div class="mb-12 sm:mb-16 text-center">
+<h2 class="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">Get In <span class="text-primary">Touch</span></h2>
+<p class="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">Interested in working together? Feel free to reach out for collaborations or just a friendly hello.</p>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-<div class="lg:col-span-2 space-y-8">
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8">
+<div class="lg:col-span-2 space-y-6 sm:space-y-8">
 <div data-aos="fade-up" class="contact-card bg-black bg-opacity-40 p-6 rounded-lg border border-white/10 hover:border-primary/30 transition-all duration-300">
 <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 contact-icon-wrapper">
 <div class="w-6 h-6 flex items-center justify-center">
@@ -3429,32 +3741,22 @@ View All Projects
 </div>
 <div data-aos="fade-up" class="social-card bg-black bg-opacity-40 p-6 rounded-lg border border-white/10 hover:border-primary/30 transition-all duration-300">
 <h3 class="text-xl font-bold mb-4">Connect With Me</h3>
-<div class="flex space-x-4">
-<a href="#" class="social-icon-link text-gray-400 hover:text-primary transition-colors">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-github-fill social-icon"></i>
-</div>
-</a>
-<a href="#" class="social-icon-link text-gray-400 hover:text-primary transition-colors">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-linkedin-fill social-icon"></i>
-</div>
-</a>
-<a href="#" class="social-icon-link text-gray-400 hover:text-primary transition-colors">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-twitter-x-fill social-icon"></i>
-</div>
-</a>
-<a href="#" class="social-icon-link text-gray-400 hover:text-primary transition-colors">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-dribbble-fill social-icon"></i>
-</div>
-</a>
-<a href="#" class="social-icon-link text-gray-400 hover:text-primary transition-colors">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-instagram-fill social-icon"></i>
-</div>
-</a>
+<div class="flex justify-center space-x-6">
+  <a href="https://github.com/Stranger2323" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="GitHub">
+    <div class="w-5 h-5 flex items-center justify-center">
+      <i class="ri-github-fill social-icon"></i>
+    </div>
+  </a>
+  <a href="https://www.facebook.com/martech.siot/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="Facebook">
+    <div class="w-5 h-5 flex items-center justify-center">
+      <i class="ri-facebook-fill social-icon"></i>
+    </div>
+  </a>
+  <a href="https://www.instagram.com/deasisjosh/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="Instagram">
+    <div class="w-5 h-5 flex items-center justify-center">
+      <i class="ri-instagram-fill social-icon"></i>
+    </div>
+  </a>
 </div>
 </div>
 <div data-aos="fade-up" class="availability-card bg-black bg-opacity-40 p-6 rounded-lg border border-white/10 hover:border-primary/30 transition-all duration-300">
@@ -3502,7 +3804,7 @@ View All Projects
 <label for="newsletter" class="text-gray-300 text-sm">Subscribe to my newsletter for updates on new projects and articles</label>
 </div>
 <div>
-<!-- From Uiverse.io by 00Kubi --> 
+<!-- From Uiverse.io by 00Kubi -->
 <button class="button">
   <div class="outline"></div>
   <div class="state state--default">
@@ -3581,28 +3883,32 @@ View All Projects
 </div>
 </section>
 <!-- Footer -->
-<footer class="py-12 px-6 bg-black bg-opacity-80">
+<footer class="py-8 sm:py-12 px-4 sm:px-6 bg-black bg-opacity-80">
 <div class="max-w-7xl mx-auto">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 sm:mb-12">
 <div>
-<div class="mb-4"><img src="images/Vidzlogo.png" alt="Vidz Logo" class="h-10"></div>
-<p class="text-gray-400 text-sm mb-4">Creating immersive digital experiences through interactive 3D development and creative coding.</p>
-<div class="flex space-x-4">
-<a href="#" class="text-gray-400 hover:text-primary transition-colors">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-github-fill"></i>
-</div>
-</a>
-<a href="#" class="text-gray-400 hover:text-primary transition-colors">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-linkedin-fill"></i>
-</div>
-</a>
-<a href="#" class="text-gray-400 hover:text-primary transition-colors">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-twitter-x-fill"></i>
-</div>
-</a>
+<div class="footer-3d-card p-6 relative" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+  <div class="card-content">
+    <div class="footer-logo mb-4"><img src="images/Vidzlogo.png" alt="Vidz Logo" class="h-10"></div>
+    <p class="footer-tagline text-sm mb-4">Creating immersive digital experiences through interactive 3D development and creative coding.</p>
+    <div class="footer-social-icons flex justify-center space-x-6 mt-6">
+      <a href="https://github.com/Stranger2323" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="GitHub">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <i class="ri-github-fill"></i>
+        </div>
+      </a>
+      <a href="https://www.facebook.com/martech.siot/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="Facebook">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <i class="ri-facebook-fill"></i>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/deasisjosh/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="Instagram">
+        <div class="w-5 h-5 flex items-center justify-center">
+          <i class="ri-instagram-fill"></i>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
 </div>
 <div>
@@ -3618,32 +3924,40 @@ View All Projects
 <div>
 <h4 class="text-lg font-bold mb-4">Services</h4>
 <ul class="space-y-2">
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">3D Web Development</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Interactive Experiences</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">WebGL Applications</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Product Configurators</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Data Visualization</a></li>
+  <li class="text-gray-400">3D Web Development</li>
+  <li class="text-gray-400">Interactive Experiences</li>
+  <li class="text-gray-400">WebGL Applications</li>
+  <li class="text-gray-400">Product Configurators</li>
+  <li class="text-gray-400">Data Visualization</li>
 </ul>
 </div>
 <div>
 <h4 class="text-lg font-bold mb-4">Newsletter</h4>
 <p class="text-gray-400 text-sm mb-4">Subscribe to receive updates on new projects and articles.</p>
-<form class="flex">
-<input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded-l bg-white/5 border-none focus:ring-2 focus:ring-primary/50 text-white text-sm">
-<button type="submit" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-r whitespace-nowrap transition-all">
-<div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-send-plane-line"></i>
+<div id="newsletter-container" class="relative">
+  <form id="newsletter-form" class="flex transition-all duration-300">
+    <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded-l bg-white/5 border-none focus:ring-2 focus:ring-primary/50 text-white text-sm" required>
+    <button type="submit" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-r whitespace-nowrap transition-all">
+      <div class="w-5 h-5 flex items-center justify-center">
+        <i class="ri-send-plane-line"></i>
+      </div>
+    </button>
+  </form>
+  <div id="newsletter-thank-you" class="absolute inset-0 bg-black/80 rounded-lg flex flex-col items-center justify-center transform scale-0 opacity-0 transition-all duration-500">
+    <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-3 animate-pulse mt-8">
+      <i class="ri-check-line text-primary text-2xl"></i>
+    </div>
+    <p class="text-white font-medium">Thank you!</p>
+    <p class="text-gray-400 text-xs">You've been subscribed</p>
+  </div>
 </div>
-</button>
-</form>
 </div>
 </div>
-<div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
-<p class="text-gray-400 text-sm mb-4 md:mb-0"> 2025 Josiah De Asis. All rights reserved.</p>
-<div class="flex space-x-6">
+<div class="pt-6 sm:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Josiah De Asis. All rights reserved.</p>
+<div class="flex space-x-4 sm:space-x-6">
 <a href="Privacy-Policy.html" class="text-gray-400 hover:text-primary text-sm transition-colors">Privacy Policy</a>
 <a href="Terms-of-Service.html" class="text-gray-400 hover:text-primary text-sm transition-colors">Terms of Service</a>
-<a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Cookies Policy</a>
 </div>
 </div>
 </div>
@@ -3656,7 +3970,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
             const loadingOverlay = document.getElementById('loading-overlay');
             const loader = document.querySelector('.loader');
-            
+
             if (loadingOverlay) {
                 // Animate loader out with a slight scale-up
                 loadingOverlay.classList.add('exit');
@@ -3664,17 +3978,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     loader.style.transform = 'scale(1.1)';
                     loader.style.opacity = '0';
                 }
-                
+
                 // Skip the pulse transition and check if user is returning visitor
                 setTimeout(() => {
                     // Check if user has visited before
                     const hasVisitedBefore = localStorage.getItem('hasVisitedPortfolio');
-                    
+
                     if (!hasVisitedBefore) {
                         // First time visitor - show welcome popup
                         showWelcomePopup();
                     }
-                    
+
                     // Finally hide loading overlay completely
                     setTimeout(() => {
                         loadingOverlay.style.visibility = 'hidden';
@@ -3683,7 +3997,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 400); // Shorter delay for faster initial load
     });
-    
+
     // Welcome popup functionality with enhanced animations
     function showWelcomePopup() {
         // Set flag in localStorage to remember this user has visited
@@ -3693,28 +4007,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const welcomeTitle = document.getElementById('welcome-title');
         const welcomeParticles = document.getElementById('welcome-particles');
         const enterButton = document.getElementById('enter-portfolio');
-        
+
         // Create particle elements
         createParticles(welcomeParticles);
-        
+
         // Show popup container with dramatic reveal
         welcomePopup.style.visibility = 'visible';
-        
+
         // Staggered animation sequence with 3D effects
         const timeline = gsap.timeline();
-        
+
         // Fade in background
         timeline.to(welcomePopup, {
             opacity: 1,
             duration: 0.4,
             ease: "power2.out"
         });
-        
+
         // Activate background effects
         timeline.add(() => {
             welcomePopup.classList.add('active');
         });
-        
+
         // 3D entrance animation - first define initial state
         gsap.set(welcomeContent, {
             rotationX: 30,
@@ -3724,7 +4038,7 @@ document.addEventListener('DOMContentLoaded', function() {
             transformPerspective: 1000,
             transformOrigin: "center center"
         });
-        
+
         // Bring in content with 3D animation
         timeline.to(welcomeContent, {
             rotationX: 0,
@@ -3737,7 +4051,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 welcomeContent.classList.add('active');
             }
         }, "+=0.1");
-        
+
         // Animate individual elements with 3D depth for a staggered reveal
         const contentElements = [
             welcomeTitle.parentElement, // The h2 container
@@ -3745,7 +4059,7 @@ document.addEventListener('DOMContentLoaded', function() {
             enterButton,
             welcomeContent.querySelector('.welcome-badge')
         ];
-        
+
         // Set initial states
         gsap.set(contentElements, {
             opacity: 0,
@@ -3753,7 +4067,7 @@ document.addEventListener('DOMContentLoaded', function() {
             rotationX: 15,
             transformOrigin: "center top"
         });
-        
+
         // Reveal each element with a 3D animation
         timeline.to(contentElements, {
             opacity: 1,
@@ -3764,17 +4078,17 @@ document.addEventListener('DOMContentLoaded', function() {
             ease: "power3.out",
             delay: 0.1
         });
-        
+
         // Typing effect for welcome message
         timeline.add(() => {
             const text = 'Welcome to my Portfolio';
             let charIndex = 0;
-            
+
             function typeText() {
                 if (charIndex < text.length) {
                     welcomeTitle.textContent = text.substring(0, charIndex + 1);
                     charIndex++;
-                    
+
                     // Faster typing speed
                     const randomDelay = Math.floor(Math.random() * 10) + 10;
                     setTimeout(typeText, randomDelay);
@@ -3790,23 +4104,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             }
-            
+
             typeText();
         }, "-=0.3");
-        
+
         // 3D hover effect on the welcome content
         welcomeContent.addEventListener('mousemove', function(e) {
             if (!welcomeContent.classList.contains('active')) return;
-            
+
             // Calculate mouse position relative to card center
             const rect = welcomeContent.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
-            
+
             // Convert to normalized coordinates (-1 to 1)
             const normalizedX = ((e.clientX - centerX) / (rect.width / 2)) * 0.15;
             const normalizedY = ((e.clientY - centerY) / (rect.height / 2)) * 0.1;
-            
+
             // Apply subtle rotation based on mouse position
             gsap.to(welcomeContent, {
                 rotationY: normalizedX * 5,
@@ -3815,7 +4129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ease: "power2.out"
             });
         });
-        
+
         // Reset rotation when mouse leaves
         welcomeContent.addEventListener('mouseleave', function() {
             gsap.to(welcomeContent, {
@@ -3825,7 +4139,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ease: "power2.out"
             });
         });
-        
+
         // Function to close the popup with animation
         function closeWelcomePopup() {
             // Stylish exit animation
@@ -3847,10 +4161,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-        
+
         // Close popup when "Enter" button is clicked
         enterButton.addEventListener('click', closeWelcomePopup);
-        
+
         // Close popup when Enter key is pressed
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Enter' && welcomePopup.style.visibility === 'visible') {
@@ -3858,30 +4172,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Create floating particles for welcome popup
     function createParticles(container) {
         const particleCount = 20;
-        
+
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'welcome-particle';
-            
+
             // Random size between 5px and 15px
             const size = Math.random() * 10 + 5;
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
-            
+
             // Random position within container
             particle.style.left = `${Math.random() * 100}%`;
             particle.style.bottom = `${Math.random() * 40}%`;
-            
+
             // Random animation delay
             particle.style.animationDelay = `${Math.random() * 4}s`;
-            
+
             // Random animation duration between 3-7s
             particle.style.animationDuration = `${Math.random() * 4 + 3}s`;
-            
+
             // Add to container
             container.appendChild(particle);
         }
@@ -3955,12 +4269,46 @@ this.classList.add('active');
 });
 });
 
-// Custom checkbox functionality
-const checkboxes = document.querySelectorAll('.custom-checkbox');
-checkboxes.forEach(checkbox => {
-checkbox.addEventListener('click', function() {
-this.checked = !this.checked;
-});
+// Custom checkbox functionality with animation
+document.addEventListener('DOMContentLoaded', function() {
+  // Target all checkboxes
+   const checkboxes = document.querySelectorAll('.custom-checkbox');
+
+   checkboxes.forEach(checkbox => {
+     checkbox.addEventListener('click', function(e) {
+       // Toggle checked state
+       this.checked = !this.checked;
+
+       // Create ripple effect
+       const ripple = document.createElement('span');
+       ripple.style.position = 'absolute';
+       ripple.style.top = '50%';
+       ripple.style.left = '50%';
+       ripple.style.width = '0';
+       ripple.style.height = '0';
+       ripple.style.backgroundColor = 'rgba(91, 143, 249, 0.4)';
+       ripple.style.borderRadius = '50%';
+       ripple.style.transform = 'translate(-50%, -50%)';
+       ripple.style.transition = 'all 0.5s ease-out';
+       ripple.style.zIndex = '0';
+
+       this.appendChild(ripple);
+
+       // Trigger animation
+       setTimeout(() => {
+         ripple.style.width = '200%';
+         ripple.style.height = '200%';
+         ripple.style.opacity = '0';
+       }, 10);
+
+       // Remove ripple after animation completes
+       setTimeout(() => {
+         ripple.remove();
+       }, 500);
+     });
+   });
+
+   // Remove specific targeting for newsletter checkbox
 });
 
 // Back to top button functionality
@@ -4096,7 +4444,7 @@ projectCards.forEach(card => {
 function initSkillsGraph() {
     const graphContainer = document.getElementById('skills-graph');
     if (!graphContainer) return;
-    
+
     // Skills data - these would be your key skills
     const skills = [
         { name: 'Frontend', icon: 'layout-line', color: '#5B8FF9', x: 50, y: 40 },
@@ -4107,7 +4455,7 @@ function initSkillsGraph() {
         { name: 'Security', icon: 'shield-check-line', color: '#ED8936', x: 35, y: 75 },
         { name: 'Performance', icon: 'speed-line', color: '#9F7AEA', x: 65, y: 75 }
     ];
-    
+
     // Create nodes
     skills.forEach(skill => {
         const node = document.createElement('div');
@@ -4115,45 +4463,45 @@ function initSkillsGraph() {
         node.style.left = `${skill.x}%`;
         node.style.top = `${skill.y}%`;
         node.style.transform = 'translate(-50%, -50%)';
-        
+
         const iconWrapper = document.createElement('div');
         iconWrapper.className = 'w-4 h-4 flex items-center justify-center mb-2';
         iconWrapper.style.backgroundColor = `${skill.color}20`; // 20% opacity of the color
         iconWrapper.style.boxShadow = `0 0 15px ${skill.color}40`; // 40% opacity glow
-        
+
         const iconInner = document.createElement('div');
         iconInner.className = 'w-2 h-2 flex items-center justify-center';
-        
+
         const icon = document.createElement('i');
         icon.className = `ri-${skill.icon} ri-lg`;
         icon.style.color = skill.color;
-        
+
         const label = document.createElement('span');
         label.className = 'text-xs text-gray-300 mt-1';
         label.textContent = skill.name;
-        
+
         iconInner.appendChild(icon);
         iconWrapper.appendChild(iconInner);
         node.appendChild(iconWrapper);
         node.appendChild(label);
         graphContainer.appendChild(node);
     });
-    
+
     // Create connecting lines using SVG
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('width', '100%');
     svg.setAttribute('height', '100%');
     svg.classList.add('absolute', 'inset-0', 'z-0');
-    
+
     // Connect related skills with lines
     const connections = [
         [0, 1], [0, 2], [1, 2], [1, 5], [2, 6], [3, 1], [3, 4], [4, 0], [4, 5], [5, 6]
     ];
-    
+
     connections.forEach(conn => {
         const skill1 = skills[conn[0]];
         const skill2 = skills[conn[1]];
-        
+
         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         line.setAttribute('x1', `${skill1.x}%`);
         line.setAttribute('y1', `${skill1.y}%`);
@@ -4161,12 +4509,12 @@ function initSkillsGraph() {
         line.setAttribute('y2', `${skill2.y}%`);
         line.setAttribute('stroke', '#ffffff20'); // 20% white
         line.setAttribute('stroke-width', '1');
-        
+
         svg.appendChild(line);
     });
-    
+
     graphContainer.insertBefore(svg, graphContainer.firstChild);
-    
+
     // Add animation: pulse effect on nodes
     const nodes = graphContainer.querySelectorAll('.tech-node');
     nodes.forEach((node, index) => {
@@ -4200,7 +4548,7 @@ function toggleAvailability(checkbox) {
   const availabilityMessage = document.querySelector('.availability-message');
   const availabilityCard = document.querySelector('.availability-card');
   const availabilityHeading = document.querySelector('.availability-card .flex.items-center.justify-between span.text-gray-300');
-  
+
   if (checkbox.checked) {
     // Available state
     availableStatus.style.display = 'inline-block'; // Explicitly show
@@ -4210,13 +4558,13 @@ function toggleAvailability(checkbox) {
     availabilityMessage.classList.remove('text-red-400');
     availabilityMessage.classList.add('text-gray-400');
     availabilityCard.classList.remove('unavailable');
-    
+
     // Add a subtle animation effect when changing to available
     availabilityCard.classList.add('animate-pulse-subtle');
     setTimeout(() => {
       availabilityCard.classList.remove('animate-pulse-subtle');
     }, 1000);
-    
+
   } else {
     // Unavailable state
     availableStatus.style.display = 'none';      // Explicitly hide
@@ -4226,14 +4574,14 @@ function toggleAvailability(checkbox) {
     availabilityMessage.classList.remove('text-gray-400');
     availabilityMessage.classList.add('text-red-400');
     availabilityCard.classList.add('unavailable');
-    
+
     // Add a subtle animation effect when changing to unavailable
     availabilityCard.classList.add('animate-pulse-subtle');
     setTimeout(() => {
       availabilityCard.classList.remove('animate-pulse-subtle');
     }, 1000);
   }
-  
+
   // Save state to localStorage
   localStorage.setItem('portfolioAvailability', checkbox.checked ? 'available' : 'unavailable');
 }
@@ -4244,7 +4592,7 @@ document.addEventListener('keydown', function(event) {
   if (event.ctrlKey && event.shiftKey && event.code === 'KeyA') {
     adminMode = !adminMode;
     const toggleElement = document.getElementById('availability-toggle');
-    
+
     if (adminMode) {
       // Enable toggle for admin
       toggleElement.removeAttribute('disabled');
@@ -4266,21 +4614,116 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('DOMContentLoaded', function() {
   const savedAvailability = localStorage.getItem('portfolioAvailability');
   const toggleElement = document.getElementById('availability-toggle');
-  
+
   // Set the toggle state based on localStorage
   if (savedAvailability === 'unavailable') {
     toggleElement.checked = false;
   } else {
     toggleElement.checked = true; // Default to available if no saved state or if saved as available
   }
-  
+
   // Always apply the visual state based on the toggle's current checked status
-  toggleAvailability(toggleElement); 
+  toggleAvailability(toggleElement);
 });
 
 // Existing JavaScript code...
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle loading screen and welcome popup sequence
+    window.addEventListener('load', function() {
+        // Create more dramatic transition between loading and welcome
+        setTimeout(function() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const loader = document.querySelector('.loader');
+
+            // ... existing code ...
+        }, 400); // Shorter delay for faster initial load
+    });
+
+    // ... existing code ...
+
+    // Initialize vanilla-tilt for footer 3D card
+    if (typeof VanillaTilt !== 'undefined') {
+        VanillaTilt.init(document.querySelector(".footer-3d-card"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.3,
+            gyroscope: true,
+            scale: 1.03,
+            transition: true,
+            perspective: 1000,
+            easing: "cubic-bezier(.03,.98,.52,.99)"
+        });
+    }
+    
+    // Save scroll position when navigating away
+    window.addEventListener('beforeunload', function() {
+        localStorage.setItem('indexScrollPosition', window.scrollY);
+    });
+    
+    // Restore scroll position when returning to the page
+    const savedPosition = localStorage.getItem('indexScrollPosition');
+    if (savedPosition) {
+        // Use a slight delay to ensure the page is fully loaded
+        setTimeout(() => {
+            window.scrollTo(0, parseInt(savedPosition));
+        }, 200);
+    }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // ... existing code ...
+
+  // Newsletter form submission animation
+  const newsletterForm = document.getElementById('newsletter-form');
+  const thankYouMessage = document.getElementById('newsletter-thank-you');
+  
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Optional: Add email validation here
+      const emailInput = this.querySelector('input[type="email"]');
+      if (!emailInput.value) return;
+      
+      // Animate form out and thank you message in
+      newsletterForm.style.opacity = '0';
+      newsletterForm.style.transform = 'translateY(-20px)';
+      
+      setTimeout(() => {
+        thankYouMessage.style.opacity = '1';
+        thankYouMessage.style.transform = 'scale(1)';
+        
+        // Store in localStorage to remember this user subscribed
+        localStorage.setItem('newsletterSubscribed', 'true');
+        
+        // Reset form after animation completes
+        setTimeout(() => {
+          emailInput.value = '';
+          
+          // Optional: Reset form after a few seconds
+          setTimeout(() => {
+            thankYouMessage.style.opacity = '0';
+            thankYouMessage.style.transform = 'scale(0)';
+            
+            setTimeout(() => {
+              newsletterForm.style.opacity = '1';
+              newsletterForm.style.transform = 'translateY(0)';
+            }, 300);
+          }, 3000);
+        }, 500);
+      }, 300);
+    });
+  }
+
+  // ... existing code ...
+});
+</script>
 
 </body>
 </html>

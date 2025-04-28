@@ -11,6 +11,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<script src="https://unpkg.com/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
 <style>
 @keyframes fadeInUp {
   from {
@@ -123,19 +126,162 @@ height: 1px;
 background: linear-gradient(to right, rgba(91, 143, 249, 0.1), rgba(138, 43, 226, 0.3), rgba(91, 143, 249, 0.1));
 margin: 2rem 0;
 }
+
+/* 3D Footer Card Styles */
+.footer-3d-card {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(91, 143, 249, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.footer-3d-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(91, 143, 249, 0.1) 0%, transparent 50%, rgba(91, 143, 249, 0.05) 100%);
+  z-index: 1;
+}
+
+.footer-3d-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, transparent 30%, rgba(91, 143, 249, 0.03) 100%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.footer-3d-card:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.footer-3d-card .card-content {
+  position: relative;
+  z-index: 3;
+  transition: transform 0.4s ease;
+}
+
+.footer-3d-card:hover .card-content {
+  transform: translateZ(20px);
+}
+
+.footer-3d-card .footer-logo img {
+  transition: transform 0.6s ease;
+}
+
+.footer-3d-card:hover .footer-logo img {
+  transform: scale(1.05) translateZ(30px);
+}
+
+.footer-3d-card .footer-social-icons {
+  transition: transform 0.5s ease;
+}
+
+.footer-3d-card:hover .footer-social-icons {
+  transform: translateZ(25px);
+}
+
+.footer-3d-card .footer-tagline {
+  color: #5B8FF9;
+  transition: all 0.5s ease;
+}
+
+.footer-3d-card:hover .footer-tagline {
+  text-shadow: 0 0 10px rgba(91, 143, 249, 0.5);
+}
+
+/* Pulsing glow animation for card */
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(91, 143, 249, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(91, 143, 249, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(91, 143, 249, 0); }
+}
+
+.footer-3d-card {
+  animation: pulse-border 3s infinite;
+}
+
+/* Tooltip styles */
+.social-icon-link {
+  position: relative;
+}
+
+.social-icon-link::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(91, 143, 249, 0.3);
+  z-index: 10;
+}
+
+/* Arrow pointer */
+.social-icon-link::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.social-icon-link:hover::after,
+.social-icon-link:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.social-icon-link:hover::after {
+  transform: translateX(-50%) translateY(-5px);
+}
 </style>
 </head>
 <body>
 <!-- Navigation -->
 <nav class="fixed top-0 left-0 w-full bg-opacity-15 bg-black backdrop-blur-md z-50 px-6 py-4">
 <div class="max-w-7xl mx-auto flex justify-between items-center">
-<div class="text-2xl font-['Pacifico'] text-white">logo</div>
+<a href="index.html" class="flex items-center">
+<img src="images/Vidzlogo.png" alt="Vidz Logo" class="h-8 sm:h-10 mr-2">
+</a>
 <div class="hidden md:flex space-x-8">
-<a href="3D-Interactive-Developer-Portfolio.html" class="nav-item text-white hover:text-primary">Home</a>
-<a href="#" class="nav-item text-white hover:text-primary">Projects</a>
-<a href="#" class="nav-item text-white hover:text-primary">Skills</a>
-<a href="#" class="nav-item text-white hover:text-primary">Experience</a>
-<a href="#" class="nav-item text-white hover:text-primary">Contact</a>
+<a href="index.html" class="nav-item text-white hover:text-primary">Home</a>
+<a href="index.html#projects" class="nav-item text-white hover:text-primary">Projects</a>
+<a href="index.html#skills" class="nav-item text-white hover:text-primary">Skills</a>
+<a href="index.html#experience" class="nav-item text-white hover:text-primary">Experience</a>
+<a href="index.html#contact" class="nav-item text-white hover:text-primary">Contact</a>
 </div>
 <div class="md:hidden w-8 h-8 flex items-center justify-center">
 <i class="ri-menu-line ri-lg text-white"></i>
@@ -144,7 +290,7 @@ margin: 2rem 0;
 </nav>
 <!-- Back to Home Button -->
 <div class="fixed top-24 left-6 z-40">
-<a href="3D-Interactive-Developer-Portfolio.html" class="flex items-center px-4 py-2 bg-black bg-opacity-40 hover:bg-opacity-60 rounded-full text-white transition-all">
+<a href="index.html" class="flex items-center px-4 py-2 bg-black bg-opacity-40 hover:bg-opacity-60 rounded-full text-white transition-all">
 <div class="w-5 h-5 flex items-center justify-center mr-2">
 <i class="ri-arrow-left-line"></i>
 </div>
@@ -174,112 +320,112 @@ margin: 2rem 0;
 <!-- Introduction Section -->
 <section id="introduction" class="mb-10">
 <h2 class="text-2xl font-bold mb-4">1. Introduction</h2>
-<p class="text-gray-300 mb-4">Welcome to Alexander Wright's portfolio and services. These Terms of Service ("Terms") govern your use of our website, applications, and services (collectively, the "Services") provided by Alexander Wright ("we," "us," or "our").</p>
-<p class="text-gray-300 mb-4">By accessing or using our Services, you agree to be bound by these Terms. If you disagree with any part of the Terms, you may not access the Services. We recommend that you read these Terms carefully before using our Services.</p>
-<p class="text-gray-300">These Terms constitute a legally binding agreement between you and Alexander Wright regarding your use of the Services.</p>
+<p class="text-gray-300 mb-4">Welcome to the portfolio of Josiah P. De Asis. This Privacy Policy explains how I ("I," "me," or "my") collect, use, and disclose information about you when you use my website and services (collectively, the "Services").</p>
+<p class="text-gray-300 mb-4">By accessing or using my Services, you agree to the collection and use of information in accordance with this policy. If you disagree with any part of the policy, you may not access the Services.</p>
+<p class="text-gray-300">I encourage you to read this policy carefully to understand my practices regarding your information.</p>
 </section>
 <div class="section-divider"></div>
-<!-- Service Usage Section -->
-<section id="service-usage" class="mb-10">
-<h2 class="text-2xl font-bold mb-4">2. Service Usage</h2>
-<p class="text-gray-300 mb-4">Our Services are designed to showcase interactive 3D development work, web applications, and related digital experiences. You may use our Services for lawful purposes only and in accordance with these Terms.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">2.1 Account Registration</h3>
-<p class="text-gray-300 mb-4">Some portions of our Services may require you to create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">2.2 Service Modifications</h3>
-<p class="text-gray-300 mb-4">We reserve the right to modify, suspend, or discontinue any part of our Services at any time, with or without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuation of the Services.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">2.3 Service Availability</h3>
-<p class="text-gray-300">While we strive to ensure that our Services are available at all times, we do not guarantee uninterrupted access to our Services. We shall not be liable for any downtime, server failures, or other technical issues that may affect access to our Services.</p>
-</section>
-<div class="section-divider"></div>
-<!-- Intellectual Property Section -->
-<section id="intellectual-property" class="mb-10">
-<h2 class="text-2xl font-bold mb-4">3. Intellectual Property Rights</h2>
-<p class="text-gray-300 mb-4">All content, features, and functionality of our Services, including but not limited to text, graphics, logos, icons, images, audio clips, digital downloads, data compilations, software, and code, are owned by Alexander Wright or our licensors and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">3.1 Limited License</h3>
-<p class="text-gray-300 mb-4">We grant you a limited, non-exclusive, non-transferable, revocable license to access and use our Services for personal, non-commercial purposes. This license does not include the right to:</p>
+<!-- Information Collection Section -->
+<section id="information-collection" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">2. Information Collection</h2>
+<p class="text-gray-300 mb-4">My Services are designed to showcase interactive 3D development work, web applications, and related digital experiences. You may use my Services for lawful purposes only.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">2.1 Personal Information</h3>
+<p class="text-gray-300 mb-4">I collect personal information that you voluntarily provide when interacting with my website, such as when you contact me through the contact form or subscribe to my newsletter. This information may include:</p>
 <ul class="list-disc pl-6 mb-4 text-gray-300 space-y-2">
-<li>Modify, reproduce, distribute, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any materials from our Services, except as expressly permitted;</li>
-<li>Use any data mining, robots, or similar data gathering or extraction methods;</li>
-<li>Use our Services or materials for any commercial purpose;</li>
-<li>Access or use any part of our Services or materials for developing a competitive product or service.</li>
+<li>Name and email address</li>
+<li>Contact information (phone number, address if provided)</li>
+<li>Any other information you choose to provide in your communications</li>
 </ul>
-<h3 class="text-xl font-semibold mt-6 mb-3">3.2 Portfolio Projects</h3>
-<p class="text-gray-300 mb-4">The projects displayed in our portfolio may incorporate third-party technologies, libraries, or frameworks, each with their own licensing terms. The display of these projects does not grant you any rights to use, modify, or distribute the underlying code or assets unless explicitly stated.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">3.3 Feedback</h3>
-<p class="text-gray-300">Any feedback, comments, or suggestions you may provide regarding our Services is entirely voluntary, and we shall be free to use such feedback, comments, or suggestions as we see fit without any obligation to you.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">2.2 Automatically Collected Information</h3>
+<p class="text-gray-300">When you visit my website, certain information about your device and visit may be automatically collected, including your IP address, browser type, operating system, device information, pages visited, and time spent on the site.</p>
 </section>
 <div class="section-divider"></div>
-<!-- User Responsibilities Section -->
-<section id="user-responsibilities" class="mb-10">
-<h2 class="text-2xl font-bold mb-4">4. User Responsibilities</h2>
-<p class="text-gray-300 mb-4">When using our Services, you agree to comply with all applicable laws and regulations. You are solely responsible for your conduct while using our Services.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">4.1 Prohibited Activities</h3>
-<p class="text-gray-300 mb-4">You agree not to engage in any of the following prohibited activities:</p>
+<!-- Cookie Usage Section -->
+<section id="cookie-usage" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">3. Cookie Usage</h2>
+<p class="text-gray-300 mb-4">My website uses cookies and similar tracking technologies to enhance your browsing experience and collect information about how you use my Services.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">3.1 Types of Cookies I Use</h3>
+<p class="text-gray-300 mb-4">I use the following types of cookies:</p>
 <ul class="list-disc pl-6 mb-4 text-gray-300 space-y-2">
-<li>Using the Services for any illegal purpose or in violation of any local, state, national, or international law;</li>
-<li>Attempting to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the Services;</li>
-<li>Imposing an unreasonable or disproportionately large load on our infrastructure;</li>
-<li>Uploading invalid data, viruses, worms, or other software agents through the Services;</li>
-<li>Collecting or harvesting any personally identifiable information from the Services;</li>
-<li>Using the Services for any commercial solicitation purposes without our prior written consent;</li>
-<li>Impersonating another person or otherwise misrepresenting your affiliation with a person or entity.</li>
+<li>Essential Cookies: Necessary for the basic functionality of the website</li>
+<li>Analytics Cookies: Help me understand how visitors interact with my website</li>
+<li>Preference Cookies: Allow the website to remember choices you make</li>
+<li>Marketing Cookies: Used to track visitors across websites for advertising purposes (if applicable)</li>
 </ul>
-<h3 class="text-xl font-semibold mt-6 mb-3">4.2 Content Submission</h3>
-<p class="text-gray-300">If our Services allow you to submit content (such as comments, feedback, or project inquiries), you retain all rights in, and are solely responsible for, the content you post. By submitting content, you grant us a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, adapt, publish, translate, and distribute such content in connection with providing our Services.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">3.2 Cookie Management</h3>
+<p class="text-gray-300">You can manage your cookie preferences through your browser settings. Most browsers allow you to block or delete cookies. However, if you block essential cookies, you may not be able to use all features of my website.</p>
 </section>
 <div class="section-divider"></div>
-<!-- Limitations of Liability Section -->
-<section id="limitations" class="mb-10">
-<h2 class="text-2xl font-bold mb-4">5. Limitations of Liability</h2>
-<p class="text-gray-300 mb-4">To the maximum extent permitted by law, in no event shall Alexander Wright, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:</p>
+<!-- Third-Party Services Section -->
+<section id="third-party-services" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">4. Third-Party Services</h2>
+<p class="text-gray-300 mb-4">My website may include links to third-party websites, plug-ins, and applications. I may also use third-party services to enhance my website functionality.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">4.1 Analytics Providers</h3>
+<p class="text-gray-300 mb-4">I use analytics providers such as Google Analytics to help analyze how users use my site. These tools use cookies to collect standard internet log information and visitor behavior information in an anonymous form.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">4.2 Social Media Platforms</h3>
+<p class="text-gray-300">If you interact with me through social media platforms, I may receive information about you from these platforms in accordance with their terms and privacy policies.</p>
+</section>
+<div class="section-divider"></div>
+<!-- User Rights Section -->
+<section id="user-rights" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">5. Your Rights and Choices</h2>
+<p class="text-gray-300 mb-4">Depending on your location, you may have certain rights regarding your personal information. These may include:</p>
 <ul class="list-disc pl-6 mb-4 text-gray-300 space-y-2">
-<li>Your access to or use of or inability to access or use the Services;</li>
-<li>Any conduct or content of any third party on the Services;</li>
-<li>Any content obtained from the Services; and</li>
-<li>Unauthorized access, use, or alteration of your transmissions or content.</li>
+<li>The right to access and receive a copy of your personal information</li>
+<li>The right to rectify or update inaccurate or incomplete information</li>
+<li>The right to delete your personal information</li>
+<li>The right to restrict or object to processing of your personal information</li>
+<li>The right to data portability</li>
+<li>The right to withdraw consent</li>
 </ul>
-<p class="text-gray-300 mb-4">Our Services are provided on an "as is" and "as available" basis, without any warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
-<p class="text-gray-300">Some jurisdictions do not allow the exclusion of certain warranties or the limitation or exclusion of liability for incidental or consequential damages. Accordingly, some of the above limitations may not apply to you.</p>
+<p class="text-gray-300">To exercise these rights, please contact me using the information provided in the Contact Information section.</p>
 </section>
 <div class="section-divider"></div>
-<!-- Termination Policies Section -->
-<section id="termination" class="mb-10">
-<h2 class="text-2xl font-bold mb-4">6. Termination Policies</h2>
-<p class="text-gray-300 mb-4">We may terminate or suspend your access to our Services immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">6.1 Effect of Termination</h3>
-<p class="text-gray-300 mb-4">Upon termination, your right to use the Services will immediately cease. If you wish to terminate your account (if applicable), you may simply discontinue using the Services or contact us to request account deletion.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">6.2 Survival</h3>
-<p class="text-gray-300">All provisions of these Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+<!-- Data Protection Section -->
+<section id="data-protection" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">6. Data Protection Measures</h2>
+<p class="text-gray-300 mb-4">I implement appropriate technical and organizational measures to protect your personal information against unauthorized or unlawful processing, accidental loss, destruction, or damage.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">6.1 Security Measures</h3>
+<p class="text-gray-300 mb-4">My security measures include:</p>
+<ul class="list-disc pl-6 mb-4 text-gray-300 space-y-2">
+<li>Encryption of sensitive data where applicable</li>
+<li>Regular security assessments and updates</li>
+<li>Limited access to personal information</li>
+<li>Use of secure hosting environments</li>
+</ul>
+<h3 class="text-xl font-semibold mt-6 mb-3">6.2 Data Retention</h3>
+<p class="text-gray-300">I retain personal information only for as long as necessary to fulfill the purposes for which it was collected, or as required by applicable laws or regulations.</p>
 </section>
 <div class="section-divider"></div>
-<!-- Governing Law Section -->
-<section id="governing-law" class="mb-10">
-<h2 class="text-2xl font-bold mb-4">7. Governing Law</h2>
-<p class="text-gray-300 mb-4">These Terms shall be governed and construed in accordance with the laws of California, United States, without regard to its conflict of law provisions.</p>
-<p class="text-gray-300 mb-4">Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect.</p>
-<h3 class="text-xl font-semibold mt-6 mb-3">7.1 Dispute Resolution</h3>
-<p class="text-gray-300">Any disputes arising out of or relating to these Terms or our Services shall first be attempted to be resolved through informal negotiation. If the dispute cannot be resolved through negotiation, it shall be submitted to mediation in San Francisco, California, in accordance with the mediation rules of the American Arbitration Association.</p>
+<!-- Legal Compliance Section -->
+<section id="compliance" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">7. Legal Compliance</h2>
+<p class="text-gray-300 mb-4">I comply with applicable data protection laws and regulations, including those in the Republic of the Philippines.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">7.1 International Data Transfers</h3>
+<p class="text-gray-300 mb-4">Your personal information may be transferred to and processed in countries other than your country of residence (e.g., where hosting servers are located). These countries may have different data protection laws. When I transfer your information, I take steps to ensure that your privacy rights continue to be protected.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">7.2 Compliance with Legal Requests</h3>
+<p class="text-gray-300">I may disclose your personal information if required by law, regulation, or legal process, or if I believe disclosure is necessary to protect my rights, property, or safety, or that of others.</p>
 </section>
 <div class="section-divider"></div>
-<!-- Changes to Terms Section -->
-<section id="changes" class="mb-10">
-<h2 class="text-2xl font-bold mb-4">8. Changes to Terms</h2>
-<p class="text-gray-300 mb-4">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
-<p class="text-gray-300 mb-4">By continuing to access or use our Services after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Services.</p>
-<p class="text-gray-300">It is your responsibility to review these Terms periodically for changes. Your continued use of the Services following the posting of revised Terms means that you accept and agree to the changes.</p>
+<!-- Policy Updates Section -->
+<section id="policy-updates" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">8. Policy Updates</h2>
+<p class="text-gray-300 mb-4">I may update this Privacy Policy from time to time to reflect changes in my practices or legal requirements. I will notify you of any material changes by posting the updated policy on my website with a new effective date.</p>
+<p class="text-gray-300 mb-4">I encourage you to review this Privacy Policy periodically to stay informed about how I am protecting your information.</p>
+<p class="text-gray-300">Your continued use of my Services after any changes to this Privacy Policy constitutes your acceptance of the revised policy.</p>
 </section>
 <div class="section-divider"></div>
 <!-- Contact Information Section -->
-<section id="contact-us" class="mb-10">
+<section id="contact-information" class="mb-10">
 <h2 class="text-2xl font-bold mb-4">9. Contact Information</h2>
-<p class="text-gray-300 mb-4">If you have any questions about these Terms, please contact us at:</p>
+<p class="text-gray-300 mb-4">If you have any questions about this Privacy Policy, please contact me at:</p>
 <div class="bg-white/5 p-6 rounded-lg animate-fadeIn delay-200">
 <div class="flex items-start mb-3">
 <div class="w-5 h-5 flex items-center justify-center mr-3 mt-0.5 text-primary">
 <i class="ri-mail-line"></i>
 </div>
 <div>
-<p class="text-gray-300">Email: alexander@example.com</p>
+<p class="text-gray-300">Email: Josiahdeasis009@gmail.com</p>
 </div>
 </div>
 <div class="flex items-start mb-3">
@@ -287,7 +433,7 @@ margin: 2rem 0;
 <i class="ri-map-pin-line"></i>
 </div>
 <div>
-<p class="text-gray-300">Address: San Francisco, California, United States</p>
+<p class="text-gray-300">Address: Philippines</p>
 </div>
 </div>
 <div class="flex items-start">
@@ -295,50 +441,54 @@ margin: 2rem 0;
 <i class="ri-time-line"></i>
 </div>
 <div>
-<p class="text-gray-300">Response Time: Within 2 business days</p>
+<p class="text-gray-300">Response Time: Will respond within 2 or 3 days</p>
 </div>
 </div>
 </div>
 </section>
 <!-- Final Note -->
 <div class="mt-12 p-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 rounded-lg animate-fadeInUp">
-<p class="text-center text-gray-300">By using our Services, you acknowledge that you have read and understood these Terms of Service and agree to be bound by them.</p>
+<p class="text-center text-gray-300">By using my Services, you acknowledge that you have read and understood this Privacy Policy.</p>
 </div>
 </div>
 </main>
 <!-- Footer -->
-<footer class="py-12 px-6 bg-black bg-opacity-80">
+<footer class="py-8 sm:py-12 px-4 sm:px-6 bg-black bg-opacity-80">
 <div class="max-w-7xl mx-auto">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8 sm:mb-12">
 <div>
-<div class="text-2xl font-['Pacifico'] text-white mb-4">logo</div>
-<p class="text-gray-400 text-sm mb-4">Creating immersive digital experiences through interactive 3D development and creative coding.</p>
-<div class="flex space-x-4">
-<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+<div class="footer-3d-card p-6 relative" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+  <div class="card-content">
+    <div class="footer-logo mb-4"><img src="images/Vidzlogo.png" alt="Vidz Logo" class="h-10"></div>
+    <p class="footer-tagline text-sm mb-4">Creating immersive digital experiences through interactive 3D development and creative coding.</p>
+    <div class="footer-social-icons flex justify-center space-x-6 mt-6">
+      <a href="https://github.com/Stranger2323" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="GitHub">
 <div class="w-5 h-5 flex items-center justify-center">
 <i class="ri-github-fill"></i>
 </div>
 </a>
-<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+      <a href="https://www.facebook.com/martech.siot/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="Facebook">
 <div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-linkedin-fill"></i>
+          <i class="ri-facebook-fill"></i>
 </div>
 </a>
-<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+      <a href="https://www.instagram.com/deasisjosh/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-gray-400 hover:text-primary transition-colors" data-tooltip="Instagram">
 <div class="w-5 h-5 flex items-center justify-center">
-<i class="ri-twitter-x-fill"></i>
+          <i class="ri-instagram-fill"></i>
 </div>
 </a>
+    </div>
+  </div>
 </div>
 </div>
 <div>
 <h4 class="text-lg font-bold mb-4">Quick Links</h4>
 <ul class="space-y-2">
-<li><a href="3D-Interactive-Developer-Portfolio.html" class="text-gray-400 hover:text-primary transition-colors">Home</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Projects</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Skills</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Experience</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Contact</a></li>
+<li><a href="index.html" class="text-gray-400 hover:text-primary transition-colors">Home</a></li>
+<li><a href="index.html#projects" class="text-gray-400 hover:text-primary transition-colors">Projects</a></li>
+<li><a href="index.html#skills" class="text-gray-400 hover:text-primary transition-colors">Skills</a></li>
+<li><a href="index.html#experience" class="text-gray-400 hover:text-primary transition-colors">Experience</a></li>
+<li><a href="index.html#contact" class="text-gray-400 hover:text-primary transition-colors">Contact</a></li>
 </ul>
 </div>
 <div>
@@ -352,21 +502,32 @@ margin: 2rem 0;
 </ul>
 </div>
 <div>
-<h4 class="text-lg font-bold mb-4">Legal</h4>
-<ul class="space-y-2">
-<li><a href="#" class="text-primary font-medium transition-colors">Privacy Policy</a></li>
-<li><a href="Terms-of-Service.html" class="text-gray-400 hover:text-primary transition-colors">Terms of Service</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Cookies Policy</a></li>
-<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Licensing</a></li>
-</ul>
+<h4 class="text-lg font-bold mb-4">Newsletter</h4>
+<p class="text-gray-400 text-sm mb-4">Subscribe to receive updates on new projects and articles.</p>
+<div id="newsletter-container" class="relative">
+  <form id="newsletter-form" class="flex transition-all duration-300">
+    <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded-l bg-white/5 border-none focus:ring-2 focus:ring-primary/50 text-white text-sm" required>
+    <button type="submit" class="px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-r whitespace-nowrap transition-all">
+      <div class="w-5 h-5 flex items-center justify-center">
+        <i class="ri-send-plane-line"></i>
+      </div>
+    </button>
+  </form>
+  <div id="newsletter-thank-you" class="absolute inset-0 bg-black/80 rounded-lg flex flex-col items-center justify-center transform scale-0 opacity-0 transition-all duration-500">
+    <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-3 animate-pulse mt-8">
+      <i class="ri-check-line text-primary text-2xl"></i>
+    </div>
+    <p class="text-white font-medium">Thank you!</p>
+    <p class="text-gray-400 text-xs">You've been subscribed</p>
+  </div>
 </div>
 </div>
-<div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
-<p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Alexander Wright. All rights reserved.</p>
-<div class="flex space-x-6">
+</div>
+<div class="pt-6 sm:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Josiah De Asis. All rights reserved.</p>
+<div class="flex space-x-4 sm:space-x-6">
 <a href="#" class="text-primary text-sm transition-colors">Privacy Policy</a>
 <a href="Terms-of-Service.html" class="text-gray-400 hover:text-primary text-sm transition-colors">Terms of Service</a>
-<a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Cookies Policy</a>
 </div>
 </div>
 </div>
@@ -398,6 +559,7 @@ document.addEventListener('DOMContentLoaded', function() {
     link.style.animationDelay = `${0.1 * (index + 1)}s`;
     link.classList.add('animate-slideInLeft');
   });
+  
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 anchor.addEventListener('click', function(e) {
@@ -412,6 +574,7 @@ behavior: 'smooth'
 }
 });
 });
+  
 // Active TOC link based on scroll position
 const sections = document.querySelectorAll('section');
 const tocLinks = document.querySelectorAll('.toc-link');
@@ -433,6 +596,77 @@ link.classList.add('text-primary');
 }
 });
 });
+  
+  // Newsletter form submission animation
+  const newsletterForm = document.getElementById('newsletter-form');
+  const thankYouMessage = document.getElementById('newsletter-thank-you');
+  
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Optional: Add email validation here
+      const emailInput = this.querySelector('input[type="email"]');
+      if (!emailInput.value) return;
+      
+      // Animate form out and thank you message in
+      newsletterForm.style.opacity = '0';
+      newsletterForm.style.transform = 'translateY(-20px)';
+      
+      setTimeout(() => {
+        thankYouMessage.style.opacity = '1';
+        thankYouMessage.style.transform = 'scale(1)';
+        
+        // Store in localStorage to remember this user subscribed
+        localStorage.setItem('newsletterSubscribed', 'true');
+        
+        // Reset form after animation completes
+        setTimeout(() => {
+          emailInput.value = '';
+          
+          // Optional: Reset form after a few seconds
+          setTimeout(() => {
+            thankYouMessage.style.opacity = '0';
+            thankYouMessage.style.transform = 'scale(0)';
+            
+            setTimeout(() => {
+              newsletterForm.style.opacity = '1';
+              newsletterForm.style.transform = 'translateY(0)';
+            }, 300);
+          }, 3000);
+        }, 500);
+      }, 300);
+    });
+  }
+  
+  // Save scroll position when navigating away
+  window.addEventListener('beforeunload', function() {
+    localStorage.setItem('privacyScrollPosition', window.scrollY);
+  });
+  
+  // Restore scroll position when returning to the page
+  const savedPosition = localStorage.getItem('privacyScrollPosition');
+  if (savedPosition) {
+    // Use a slight delay to ensure the page is fully loaded
+    setTimeout(() => {
+      window.scrollTo(0, parseInt(savedPosition));
+    }, 200);
+  }
+  
+  // Initialize vanilla-tilt for footer 3D card
+  if (typeof VanillaTilt !== 'undefined') {
+    VanillaTilt.init(document.querySelector(".footer-3d-card"), {
+      max: 15,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.3,
+      gyroscope: true,
+      scale: 1.03,
+      transition: true,
+      perspective: 1000,
+      easing: "cubic-bezier(.03,.98,.52,.99)"
+    });
+  }
 });
 </script>
 </body>
