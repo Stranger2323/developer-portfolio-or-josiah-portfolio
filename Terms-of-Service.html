@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service - Developer Portfolio</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#5B8FF9',secondary:'#8A2BE2'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #1A1A1A;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.grid-bg {
+background-size: 30px 30px;
+background-image:
+linear-gradient(to right, rgba(66, 245, 191, 0.05) 1px, transparent 1px),
+linear-gradient(to bottom, rgba(66, 245, 191, 0.05) 1px, transparent 1px);
+}
+.nav-item {
+position: relative;
+transition: color 0.3s ease;
+}
+.nav-item::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: -4px;
+left: 0;
+background-color: #8A2BE2;
+transition: width 0.3s ease;
+}
+.nav-item:hover::after,
+.nav-item.active::after {
+width: 100%;
+}
+.nav-item.active {
+color: #8A2BE2;
+}
+.toc-link {
+position: relative;
+transition: color 0.3s ease;
+}
+.toc-link::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: -2px;
+left: 0;
+background-color: #5B8FF9;
+transition: width 0.3s ease;
+}
+.toc-link:hover::after {
+width: 100%;
+}
+.toc-link:hover {
+color: #5B8FF9;
+}
+.section-divider {
+height: 1px;
+background: linear-gradient(to right, rgba(91, 143, 249, 0.1), rgba(138, 43, 226, 0.3), rgba(91, 143, 249, 0.1));
+margin: 2rem 0;
+}
+</style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 w-full bg-opacity-15 bg-black backdrop-blur-md z-50 px-6 py-4">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+<div class="text-2xl font-['Pacifico'] text-white">logo</div>
+<div class="hidden md:flex space-x-8">
+<a href="3D-Interactive-Developer-Portfolio.html" class="nav-item text-white hover:text-primary">Home</a>
+<a href="#" class="nav-item text-white hover:text-primary">Projects</a>
+<a href="#" class="nav-item text-white hover:text-primary">Skills</a>
+<a href="#" class="nav-item text-white hover:text-primary">Experience</a>
+<a href="#" class="nav-item text-white hover:text-primary">Contact</a>
+</div>
+<div class="md:hidden w-8 h-8 flex items-center justify-center">
+<i class="ri-menu-line ri-lg text-white"></i>
+</div>
+</div>
+</nav>
+<!-- Back to Home Button -->
+<div class="fixed top-24 left-6 z-40">
+<a href="3D-Interactive-Developer-Portfolio.html" class="flex items-center px-4 py-2 bg-black bg-opacity-40 hover:bg-opacity-60 rounded-full text-white transition-all">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-arrow-left-line"></i>
+</div>
+<span>Back to Home</span>
+</a>
+</div>
+<!-- Main Content -->
+<main class="pt-32 pb-20 px-6 grid-bg min-h-screen">
+<div class="max-w-4xl mx-auto bg-black bg-opacity-40 rounded-xl p-8 border border-white/10">
+<h1 class="text-4xl md:text-5xl font-bold mb-8 text-center animate-fadeInUp"><span class="text-primary">Terms</span> of Service</h1>
+<p class="text-gray-300 mb-8 text-center animate-fadeInUp delay-200">Last Updated: April 25, 2025</p>
+<!-- Table of Contents -->
+<div class="mb-12 p-6 bg-white/5 rounded-lg animate-fadeIn delay-300">
+<h2 class="text-xl font-bold mb-4">Table of Contents</h2>
+<ul class="space-y-2">
+<li><a href="#introduction" class="toc-link text-gray-300 hover:text-primary">1. Introduction</a></li>
+<li><a href="#service-usage" class="toc-link text-gray-300 hover:text-primary">2. Service Usage</a></li>
+<li><a href="#intellectual-property" class="toc-link text-gray-300 hover:text-primary">3. Intellectual Property Rights</a></li>
+<li><a href="#user-responsibilities" class="toc-link text-gray-300 hover:text-primary">4. User Responsibilities</a></li>
+<li><a href="#limitations" class="toc-link text-gray-300 hover:text-primary">5. Limitations of Liability</a></li>
+<li><a href="#termination" class="toc-link text-gray-300 hover:text-primary">6. Termination Policies</a></li>
+<li><a href="#governing-law" class="toc-link text-gray-300 hover:text-primary">7. Governing Law</a></li>
+<li><a href="#changes" class="toc-link text-gray-300 hover:text-primary">8. Changes to Terms</a></li>
+<li><a href="#contact-us" class="toc-link text-gray-300 hover:text-primary">9. Contact Information</a></li>
+</ul>
+</div>
+<!-- Introduction Section -->
+<section id="introduction" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">1. Introduction</h2>
+<p class="text-gray-300 mb-4">Welcome to Alexander Wright's portfolio and services. These Terms of Service ("Terms") govern your use of our website, applications, and services (collectively, the "Services") provided by Alexander Wright ("we," "us," or "our").</p>
+<p class="text-gray-300 mb-4">By accessing or using our Services, you agree to be bound by these Terms. If you disagree with any part of the Terms, you may not access the Services. We recommend that you read these Terms carefully before using our Services.</p>
+<p class="text-gray-300">These Terms constitute a legally binding agreement between you and Alexander Wright regarding your use of the Services.</p>
+</section>
+<div class="section-divider"></div>
+<!-- Service Usage Section -->
+<section id="service-usage" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">2. Service Usage</h2>
+<p class="text-gray-300 mb-4">Our Services are designed to showcase interactive 3D development work, web applications, and related digital experiences. You may use our Services for lawful purposes only and in accordance with these Terms.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">2.1 Account Registration</h3>
+<p class="text-gray-300 mb-4">Some portions of our Services may require you to create an account. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">2.2 Service Modifications</h3>
+<p class="text-gray-300 mb-4">We reserve the right to modify, suspend, or discontinue any part of our Services at any time, with or without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuation of the Services.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">2.3 Service Availability</h3>
+<p class="text-gray-300">While we strive to ensure that our Services are available at all times, we do not guarantee uninterrupted access to our Services. We shall not be liable for any downtime, server failures, or other technical issues that may affect access to our Services.</p>
+</section>
+<div class="section-divider"></div>
+<!-- Intellectual Property Section -->
+<section id="intellectual-property" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">3. Intellectual Property Rights</h2>
+<p class="text-gray-300 mb-4">All content, features, and functionality of our Services, including but not limited to text, graphics, logos, icons, images, audio clips, digital downloads, data compilations, software, and code, are owned by Alexander Wright or our licensors and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">3.1 Limited License</h3>
+<p class="text-gray-300 mb-4">We grant you a limited, non-exclusive, non-transferable, revocable license to access and use our Services for personal, non-commercial purposes. This license does not include the right to:</p>
+<ul class="list-disc pl-6 mb-4 text-gray-300 space-y-2">
+<li>Modify, reproduce, distribute, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any materials from our Services, except as expressly permitted;</li>
+<li>Use any data mining, robots, or similar data gathering or extraction methods;</li>
+<li>Use our Services or materials for any commercial purpose;</li>
+<li>Access or use any part of our Services or materials for developing a competitive product or service.</li>
+</ul>
+<h3 class="text-xl font-semibold mt-6 mb-3">3.2 Portfolio Projects</h3>
+<p class="text-gray-300 mb-4">The projects displayed in our portfolio may incorporate third-party technologies, libraries, or frameworks, each with their own licensing terms. The display of these projects does not grant you any rights to use, modify, or distribute the underlying code or assets unless explicitly stated.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">3.3 Feedback</h3>
+<p class="text-gray-300">Any feedback, comments, or suggestions you may provide regarding our Services is entirely voluntary, and we shall be free to use such feedback, comments, or suggestions as we see fit without any obligation to you.</p>
+</section>
+<div class="section-divider"></div>
+<!-- User Responsibilities Section -->
+<section id="user-responsibilities" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">4. User Responsibilities</h2>
+<p class="text-gray-300 mb-4">When using our Services, you agree to comply with all applicable laws and regulations. You are solely responsible for your conduct while using our Services.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">4.1 Prohibited Activities</h3>
+<p class="text-gray-300 mb-4">You agree not to engage in any of the following prohibited activities:</p>
+<ul class="list-disc pl-6 mb-4 text-gray-300 space-y-2">
+<li>Using the Services for any illegal purpose or in violation of any local, state, national, or international law;</li>
+<li>Attempting to interfere with, compromise the system integrity or security, or decipher any transmissions to or from the servers running the Services;</li>
+<li>Imposing an unreasonable or disproportionately large load on our infrastructure;</li>
+<li>Uploading invalid data, viruses, worms, or other software agents through the Services;</li>
+<li>Collecting or harvesting any personally identifiable information from the Services;</li>
+<li>Using the Services for any commercial solicitation purposes without our prior written consent;</li>
+<li>Impersonating another person or otherwise misrepresenting your affiliation with a person or entity.</li>
+</ul>
+<h3 class="text-xl font-semibold mt-6 mb-3">4.2 Content Submission</h3>
+<p class="text-gray-300">If our Services allow you to submit content (such as comments, feedback, or project inquiries), you retain all rights in, and are solely responsible for, the content you post. By submitting content, you grant us a worldwide, non-exclusive, royalty-free license to use, reproduce, modify, adapt, publish, translate, and distribute such content in connection with providing our Services.</p>
+</section>
+<div class="section-divider"></div>
+<!-- Limitations of Liability Section -->
+<section id="limitations" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">5. Limitations of Liability</h2>
+<p class="text-gray-300 mb-4">To the maximum extent permitted by law, in no event shall Alexander Wright, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:</p>
+<ul class="list-disc pl-6 mb-4 text-gray-300 space-y-2">
+<li>Your access to or use of or inability to access or use the Services;</li>
+<li>Any conduct or content of any third party on the Services;</li>
+<li>Any content obtained from the Services; and</li>
+<li>Unauthorized access, use, or alteration of your transmissions or content.</li>
+</ul>
+<p class="text-gray-300 mb-4">Our Services are provided on an "as is" and "as available" basis, without any warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+<p class="text-gray-300">Some jurisdictions do not allow the exclusion of certain warranties or the limitation or exclusion of liability for incidental or consequential damages. Accordingly, some of the above limitations may not apply to you.</p>
+</section>
+<div class="section-divider"></div>
+<!-- Termination Policies Section -->
+<section id="termination" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">6. Termination Policies</h2>
+<p class="text-gray-300 mb-4">We may terminate or suspend your access to our Services immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">6.1 Effect of Termination</h3>
+<p class="text-gray-300 mb-4">Upon termination, your right to use the Services will immediately cease. If you wish to terminate your account (if applicable), you may simply discontinue using the Services or contact us to request account deletion.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">6.2 Survival</h3>
+<p class="text-gray-300">All provisions of these Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+</section>
+<div class="section-divider"></div>
+<!-- Governing Law Section -->
+<section id="governing-law" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">7. Governing Law</h2>
+<p class="text-gray-300 mb-4">These Terms shall be governed and construed in accordance with the laws of California, United States, without regard to its conflict of law provisions.</p>
+<p class="text-gray-300 mb-4">Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect.</p>
+<h3 class="text-xl font-semibold mt-6 mb-3">7.1 Dispute Resolution</h3>
+<p class="text-gray-300">Any disputes arising out of or relating to these Terms or our Services shall first be attempted to be resolved through informal negotiation. If the dispute cannot be resolved through negotiation, it shall be submitted to mediation in San Francisco, California, in accordance with the mediation rules of the American Arbitration Association.</p>
+</section>
+<div class="section-divider"></div>
+<!-- Changes to Terms Section -->
+<section id="changes" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">8. Changes to Terms</h2>
+<p class="text-gray-300 mb-4">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+<p class="text-gray-300 mb-4">By continuing to access or use our Services after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, please stop using the Services.</p>
+<p class="text-gray-300">It is your responsibility to review these Terms periodically for changes. Your continued use of the Services following the posting of revised Terms means that you accept and agree to the changes.</p>
+</section>
+<div class="section-divider"></div>
+<!-- Contact Information Section -->
+<section id="contact-us" class="mb-10">
+<h2 class="text-2xl font-bold mb-4">9. Contact Information</h2>
+<p class="text-gray-300 mb-4">If you have any questions about these Terms, please contact us at:</p>
+<div class="bg-white/5 p-6 rounded-lg animate-fadeIn delay-200">
+<div class="flex items-start mb-3">
+<div class="w-5 h-5 flex items-center justify-center mr-3 mt-0.5 text-primary">
+<i class="ri-mail-line"></i>
+</div>
+<div>
+<p class="text-gray-300">Email: alexander@example.com</p>
+</div>
+</div>
+<div class="flex items-start mb-3">
+<div class="w-5 h-5 flex items-center justify-center mr-3 mt-0.5 text-primary">
+<i class="ri-map-pin-line"></i>
+</div>
+<div>
+<p class="text-gray-300">Address: San Francisco, California, United States</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center mr-3 mt-0.5 text-primary">
+<i class="ri-time-line"></i>
+</div>
+<div>
+<p class="text-gray-300">Response Time: Within 2 business days</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Final Note -->
+<div class="mt-12 p-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 rounded-lg animate-fadeInUp">
+<p class="text-center text-gray-300">By using our Services, you acknowledge that you have read and understood these Terms of Service and agree to be bound by them.</p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="py-12 px-6 bg-black bg-opacity-80">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<div>
+<div class="text-2xl font-['Pacifico'] text-white mb-4">logo</div>
+<p class="text-gray-400 text-sm mb-4">Creating immersive digital experiences through interactive 3D development and creative coding.</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-github-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-linkedin-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-twitter-x-fill"></i>
+</div>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-4">Quick Links</h4>
+<ul class="space-y-2">
+<li><a href="3D-Interactive-Developer-Portfolio.html" class="text-gray-400 hover:text-primary transition-colors">Home</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Projects</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Skills</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Experience</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-4">Services</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">3D Web Development</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Interactive Experiences</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">WebGL Applications</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Product Configurators</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Data Visualization</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-4">Legal</h4>
+<ul class="space-y-2">
+<li><a href="Privacy-Policy.html" class="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a></li>
+<li><a href="#" class="text-primary font-medium transition-colors">Terms of Service</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Cookies Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Licensing</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Alexander Wright. All rights reserved.</p>
+<div class="flex space-x-6">
+<a href="Privacy-Policy.html" class="text-gray-400 hover:text-primary text-sm transition-colors">Privacy Policy</a>
+<a href="#" class="text-primary text-sm transition-colors">Terms of Service</a>
+<a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Cookies Policy</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Animate sections on scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fadeInUp');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('section').forEach(section => {
+    section.style.opacity = '0';
+    observer.observe(section);
+  });
+
+  // Animate table of contents links
+  document.querySelectorAll('.toc-link').forEach((link, index) => {
+    link.style.animationDelay = `${0.1 * (index + 1)}s`;
+    link.classList.add('animate-slideInLeft');
+  });
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+window.scrollTo({
+top: targetElement.offsetTop - 100,
+behavior: 'smooth'
+});
+}
+});
+});
+// Active TOC link based on scroll position
+const sections = document.querySelectorAll('section');
+const tocLinks = document.querySelectorAll('.toc-link');
+window.addEventListener('scroll', function() {
+let current = '';
+sections.forEach(section => {
+const sectionTop = section.offsetTop;
+const sectionHeight = section.clientHeight;
+if (pageYOffset >= sectionTop - 150) {
+current = section.getAttribute('id');
+}
+});
+tocLinks.forEach(link => {
+link.classList.remove('text-primary');
+link.classList.add('text-gray-300');
+if (link.getAttribute('href') === `#${current}`) {
+link.classList.remove('text-gray-300');
+link.classList.add('text-primary');
+}
+});
+});
+});
+</script>
+</body>
+</html>
